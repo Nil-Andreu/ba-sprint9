@@ -1,9 +1,22 @@
-import React, {Fragment, useState, useEffect} from 'react'
+import React, {Fragment, useEffect, useState} from 'react'
 import styled from 'styled-components'
 import axios from 'axios' 
 import logo from '../assets/logo.svg'
 
 function PrincipalPage() {
+    // We create the function with axios
+    const FetchUrl = async (url) => {
+        let data = await axios(url)
+        return data
+    }
+    const [url, setUrl] = useState("https://swapi.dev/api/starships/")
+
+    useEffect(() => {
+        let data = FetchUrl(url)
+        console.log(data)
+    }, [])
+
+
     return (
         <Fragment>
             <Header>
