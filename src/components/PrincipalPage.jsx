@@ -50,7 +50,12 @@ function PrincipalPage() {
       </Navbar>
       {buttonList ? (
         <List>
+            <ListCard >
+              <ListCardTitle>dsdas</ListCardTitle>
+              <ListCardType>Gello</ListCardType>
+            </ListCard>
           {data.map((i) => {
+              <p>{i.name}</p>
               {console.log(i.name)}
             <ListCard key={i.name}>
               <ListCardTitle>{i.name}</ListCardTitle>
@@ -83,7 +88,7 @@ const Image = styled.img`
 
 const Navbar = styled.div`
   border: white;
-  height: 10vh;
+  height: 5vh;
   background-color: #000;
   border-top: 1px solid #aaaaaa;
   border-bottom: 1px solid #aaaaaa;
@@ -109,7 +114,7 @@ const Button = styled.button`
   text-transform: uppercase;
 
   &:focus {
-    border-bottom: 7px solid #2a58f1;
+    border-bottom: 3px solid #2a58f1;
   }
 `;
 
@@ -135,17 +140,21 @@ const ListCard = styled.div`
   background-color: #4e4d4d;
   color: white;
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 `;
 
 const ListCardTitle = styled.h2`
-  font-size: 2rem;
+margin-left: 30px;
+  font-size: 1rem;
   color: #999999;
   text-transform: uppercase;
 `;
 
 const ListCardType = styled.h3`
-  font-size: 1.5rem;
+margin-left: 30px;
+  font-size: .5rem;
   text-transform: uppercase;
   color: #999999;
 `;
