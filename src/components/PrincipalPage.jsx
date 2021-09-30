@@ -67,7 +67,7 @@ const Button = styled.button`
     text-transform: uppercase;
 
     &:focus {
-        border-bottom: 10px solid #3502ad;
+        border-bottom: 7px solid #2a58f1;
     }
 `;
 
