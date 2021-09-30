@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import PrincipalPage from './components/PrincipalPage'
+import './index.css'
 
 
 
