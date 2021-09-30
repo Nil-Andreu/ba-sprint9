@@ -50,17 +50,13 @@ function PrincipalPage() {
       </Navbar>
       {buttonList ? (
         <List>
-            <ListCard >
-              <ListCardTitle>dsdas</ListCardTitle>
-              <ListCardType>Gello</ListCardType>
-            </ListCard>
+            
           {data.map((i) => {
-              <p>{i.name}</p>
-              {console.log(i.name)}
+              return (
             <ListCard key={i.name}>
               <ListCardTitle>{i.name}</ListCardTitle>
               <ListCardType>{i.model}</ListCardType>
-            </ListCard>
+            </ListCard>)
           })}
         </List>
       ) : (
@@ -126,18 +122,19 @@ const HomePage = styled.div`
 const List = styled.div`
   background-color: #000;
   width: 100%;
-  height: 80vh;
+  height: auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: flex-start;
 `;
 
 const ListCard = styled.div`
-  margin: 4vh 5vw;
+  margin: 2vh 15vw;
   height: 14vh;
-  border: 1px solid #aaa;
-  width: 90vw;
-  background-color: #4e4d4d;
+  border-radius: 2px;
+    width: 70vw;
+  background-color: #202020;
   color: white;
   display: flex;
   flex-direction: column;
