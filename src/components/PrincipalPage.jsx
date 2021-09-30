@@ -55,7 +55,7 @@ const Button = styled.button`
     height: 100%;
     border-left: 1px solid #aaaaaa;
     border-right: 1px solid #aaaaaa;
-    color:white;
+    color:#999999;
 
     border-top: none;
     border-bottom: none;
