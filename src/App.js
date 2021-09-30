@@ -1,9 +1,14 @@
+import { Fragment } from "react";
+import PrincipalPage from './components/PrincipalPage'
+
+
+
 
 function App() {
   return (
-    <div className="App">
-      
-    </div>
+    <Fragment>
+      <PrincipalPage />
+    </Fragment>
   );
 }
 
