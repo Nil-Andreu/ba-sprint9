@@ -11,7 +11,12 @@ function PrincipalPage() {
             
             </Header>
             <Navbar>
-
+                <Button>
+                    Home
+                </Button>
+                <Button>
+                    Starthips
+                </Button>
             </Navbar>
         </Fragment>
     )
@@ -36,7 +41,34 @@ const Image = styled.img`
 
 const Navbar = styled.div`
     border: white;
+    height: 10vh;
     background-color: #000;
+    border-top: 1px solid #aaaaaa;
+    border-bottom: 1px solid #aaaaaa;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+`;
+
+const Button = styled.button`
+    width: 10vw;
+    height: 100%;
+    border-left: 1px solid #aaaaaa;
+    border-right: 1px solid #aaaaaa;
+    color:white;
+
+    border-top: none;
+    border-bottom: none;
+    background-color: transparent;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+
+    &:focus {
+        border-bottom: 10px solid #3502ad;
+    }
 `;
 
 export default PrincipalPage
