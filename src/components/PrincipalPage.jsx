@@ -62,7 +62,7 @@ function PrincipalPage() {
             idStarship += 1;
 
             return (
-              <ListCard key={i.name} to={stringurl} url={url}>
+              <ListCard key={i.name} to={stringurl}>
                 <ListCardTitle>{i.name}</ListCardTitle>
                 <ListCardType>{i.model}</ListCardType>
               </ListCard>
