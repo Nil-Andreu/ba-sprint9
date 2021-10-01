@@ -2,11 +2,15 @@ import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import logo from "../assets/logo.svg";
+import { Link } from "react-router-dom";
 
 function PrincipalPage() {
   const [url, setUrl] = useState("https://swapi.dev/api/starships/");
   const [buttonList, setButtonList] = useState(false);
   const [data, setData] = useState([]);
+
+  // To handle the number of the startship
+  let idStarship = 0;
 
   let buttonListHandler = (number) => {
     if (number == 1) {
@@ -21,7 +25,7 @@ function PrincipalPage() {
     const FetchUrl = async (urlQuery) => {
       let result = await axios(urlQuery);
       setData(result.data.results);
-    }
+    };
     FetchUrl(url);
   }, [url]);
 
@@ -50,13 +54,19 @@ function PrincipalPage() {
       </Navbar>
       {buttonList ? (
         <List>
-            
           {data.map((i) => {
-              return (
-            <ListCard key={i.name}>
-              <ListCardTitle>{i.name}</ListCardTitle>
-              <ListCardType>{i.model}</ListCardType>
-            </ListCard>)
+            console.log(idStarship);
+
+            let stringurl = "/starships/?id=" + idStarship; // To create a parameter in the url of the name of the starship
+
+            idStarship += 1;
+
+            return (
+              <ListCard key={i.name} to={stringurl} url={url}>
+                <ListCardTitle>{i.name}</ListCardTitle>
+                <ListCardType>{i.model}</ListCardType>
+              </ListCard>
+            );
           })}
         </List>
       ) : (
@@ -129,29 +139,34 @@ const List = styled.div`
   align-items: flex-start;
 `;
 
-const ListCard = styled.div`
+const ListCard = styled(Link)`
   margin: 2vh 15vw;
   height: 14vh;
   border-radius: 2px;
-    width: 70vw;
+  width: 70vw;
   background-color: #202020;
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  text-decoration: none;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 const ListCardTitle = styled.h2`
-margin-left: 30px;
+  margin-left: 30px;
   font-size: 1rem;
   color: #999999;
   text-transform: uppercase;
 `;
 
 const ListCardType = styled.h3`
-margin-left: 30px;
-  font-size: .5rem;
+  margin-left: 30px;
+  font-size: 0.5rem;
   text-transform: uppercase;
   color: #999999;
 `;
