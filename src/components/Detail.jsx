@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 function Detail() {
-  let url = "https://swapi.dev/api/starships/";
+  /*let url = "https://swapi.dev/api/starships/";
   const [data, setData] = useState([]);
 
   // Now we obtain the name of the startship we clicked the name of
@@ -14,24 +15,32 @@ function Detail() {
     console.log(id);
 
     // And create the new url for the query
-    let urlQuery = url + id + "/";
+    let urlQuery = url + id + "/?format=json";
     console.log(urlQuery.toString());
 
     // Now let's make the query with fetch
     let QueryStarship = async (urlQuery) => {
-      let query = await fetch(urlQuery, {
-        method: "GET",
-        Headers: "application/json",
-        mode: "cors",
+      await fetch(urlQuery, {
+        headers: {
+          type: "application/json",
+        },
       })
-        .then((res) => console.log(res))
-        .catch((error) => console.log(error)); // And some error handling when we are not able to request the detail for the given starship
-
-      setData(query);
+        .then((query) => console.log(query))
+        .then((query) => setData(query));
     };
     // fetch(url).then((data) => console.log(data))
 
     QueryStarship();
+  }, []);*/
+
+  useEffect(() => {
+    // We create the function with axios
+    const FetchUrl = async () => {
+      let result = await axios.get("https://swapi.dev/api/starships/2/?format=json")
+      result = result.data
+      console.log(result)
+    };
+    FetchUrl();
   }, []);
 
   return <div></div>;

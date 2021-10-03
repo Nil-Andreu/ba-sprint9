@@ -23,6 +23,7 @@ function PrincipalPage() {
     // We create the function with axios
     const FetchUrl = async (urlQuery) => {
       let result = await axios(urlQuery);
+      console.log(result)
       setData(result.data.results);
     };
     FetchUrl(url);
