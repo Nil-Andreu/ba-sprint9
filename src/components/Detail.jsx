@@ -15,7 +15,7 @@ function Detail() {
 
     // And create the new url for the query
     let urlQuery = url + id + "/";
-    console.log(urlQuery);
+    console.log(urlQuery.toString());
 
     // Now let's make the query with fetch
     let QueryStarship = async (urlQuery) => {
