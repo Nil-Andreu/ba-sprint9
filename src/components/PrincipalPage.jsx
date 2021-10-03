@@ -10,7 +10,7 @@ function PrincipalPage() {
   const [data, setData] = useState([]);
 
   // To handle the number of the startship
-  let idStarship = 0;
+  let idStarship = 1;
 
   let buttonListHandler = (number) => {
     if (number == 1) {

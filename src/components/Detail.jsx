@@ -7,8 +7,11 @@ function Detail() {
   // Now we obtain the name of the startship we clicked the name of
   useEffect(() => {
     let queryString = window.location.search;
+    console.log(queryString)
     const urlParams = new URLSearchParams(queryString);
+    console.log(urlParams)
     let id = urlParams.get("id");
+    console.log(id)
 
     // And create the new url for the query
     let urlQuery = url + id +  "/"
