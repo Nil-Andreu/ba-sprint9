@@ -1,2 +1,2 @@
-- Put the detail in the same page as the initial one
+- Put the detail in the same page as the initial one (we can divide this components, and the one of detail have this function)
 - Other exercises

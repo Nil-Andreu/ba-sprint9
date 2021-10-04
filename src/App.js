@@ -22,9 +22,7 @@ function App() {
         <Route exact path="/">
           <PrincipalPage />
         </Route>
-        <Route path="/starships/"> 
-          <Detail />
-        </Route>  
+          
       </Switch>
     </Router>
   );

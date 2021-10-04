@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import Detail from './Detail.jsx'
 import styled from "styled-components";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -8,8 +9,12 @@ function PrincipalPage() {
   const [buttonList, setButtonList] = useState(false);
   const [data, setData] = useState([]);
 
+  const RenderDetail = (id) => {
+    return <Detail id={id}/>
+  }
+
   // To handle the number of the startship
-  let idStarship = 1;
+  let idStarship = 0;
 
   let buttonListHandler = (number) => {
     if (number == 1) {
@@ -53,14 +58,10 @@ function PrincipalPage() {
       {buttonList ? (
         <List>
           {data.map((i) => {
-            console.log(idStarship);
-
-            let stringurl = "/starships/?id=" + idStarship; // To create a parameter in the url of the name of the starship
-
             idStarship += 1;
 
             return (
-              <ListCard key={i.name} to={stringurl}>
+              <ListCard key={i.name} onClick={() => RenderDetail(idStarship)}> 
                 <ListCardTitle>{i.name}</ListCardTitle>
                 <ListCardType>{i.model}</ListCardType>
               </ListCard>

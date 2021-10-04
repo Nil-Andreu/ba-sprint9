@@ -2,14 +2,15 @@ import React, { useEffect, useState, Fragment } from "react";
 import styled from 'styled-components'
 import axios from "axios";
 
-function Detail() {
+function Detail(id) {
   const [data, setData] = useState([]);
   const [err, setErr] = useState(false)
 
   useEffect(() => {
-    let queryString = window.location.search;
+    // In the cae we wanted to pass this id in the url
+    /*let queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    let id = urlParams.get("id");
+    let id = urlParams.get("id");*/
 
     // We create the function with axios
     const FetchUrl = async () => {
