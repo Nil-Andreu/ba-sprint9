@@ -7,10 +7,6 @@ function Detail(id) {
   const [err, setErr] = useState(false)
 
   useEffect(() => {
-    // In the cae we wanted to pass this id in the url
-    /*let queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    let id = urlParams.get("id");*/
 
     // We create the function with axios
     const FetchUrl = async () => {
@@ -18,11 +14,10 @@ function Detail(id) {
         res => res.data
       ).catch( // For catching the errors
         error => {setErr(error.toString())
-        console.log(error)}
+        }
         
       )
       setData(result)
-      console.log(data)
     };
 
     FetchUrl();

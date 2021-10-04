@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import Detail from './Detail.jsx'
+import Detail from "./Detail.jsx";
 import styled from "styled-components";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -8,10 +8,7 @@ function PrincipalPage() {
   const [url, setUrl] = useState("https://swapi.dev/api/starships/");
   const [buttonList, setButtonList] = useState(false);
   const [data, setData] = useState([]);
-
-  const RenderDetail = (id) => {
-    return <Detail id={id}/>
-  }
+  const [detailRenderer, setDetailRenderer] = useState(false);
 
   // To handle the number of the startship
   let idStarship = 0;
@@ -28,7 +25,7 @@ function PrincipalPage() {
     // We create the function with axios
     const FetchUrl = async (urlQuery) => {
       let result = await axios(urlQuery);
-      console.log(result)
+      console.log(result);
       setData(result.data.results);
     };
     FetchUrl(url);
@@ -36,7 +33,6 @@ function PrincipalPage() {
 
   return (
     <Fragment>
-      
       <Navbar>
         <Button
           checked={buttonList}
@@ -59,13 +55,16 @@ function PrincipalPage() {
         <List>
           {data.map((i) => {
             idStarship += 1;
-
-            return (
-              <ListCard key={i.name} onClick={() => RenderDetail(idStarship)}> 
-                <ListCardTitle>{i.name}</ListCardTitle>
-                <ListCardType>{i.model}</ListCardType>
-              </ListCard>
-            );
+            if (detailRenderer == true) {
+              return <Detail id={idStarship}/>;
+            } else {
+              return (
+                <ListCard key={i.name} onClick={() => setDetailRenderer(!detailRenderer)}>
+                  <ListCardTitle>{i.name}</ListCardTitle>
+                  <ListCardType>{i.model}</ListCardType>
+                </ListCard>
+              );
+            }
           })}
         </List>
       ) : (
@@ -74,7 +73,6 @@ function PrincipalPage() {
     </Fragment>
   );
 }
-
 
 const Navbar = styled.div`
   border: white;
