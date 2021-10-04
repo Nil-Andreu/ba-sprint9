@@ -31,6 +31,10 @@ function PrincipalPage() {
     FetchUrl(url);
   }, [url]);
 
+  const DetailRenderedHandler = (idStarship) => {
+    setDetailRenderer(!detailRenderer)
+  }
+
   return (
     <Fragment>
       <Navbar>
@@ -56,10 +60,10 @@ function PrincipalPage() {
           {data.map((i) => {
             idStarship += 1;
             if (detailRenderer == true) {
-              return <Detail id={idStarship}/>;
+              return <Detail key={idStarship} id={idStarship} setDetailRenderer={setDetailRenderer} detailRenderer={detailRenderer}/>;
             } else {
               return (
-                <ListCard key={i.name} onClick={() => setDetailRenderer(!detailRenderer)}>
+                <ListCard key={idStarship} onClick={() => DetailRenderedHandler(idStarship)}>
                   <ListCardTitle>{i.name}</ListCardTitle>
                   <ListCardType>{i.model}</ListCardType>
                 </ListCard>
@@ -121,7 +125,7 @@ const List = styled.div`
   align-items: flex-start;
 `;
 
-const ListCard = styled(Link)`
+const ListCard = styled.div`
   margin: 2vh 15vw;
   height: 14vh;
   border-radius: 2px;

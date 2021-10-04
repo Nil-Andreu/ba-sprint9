@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from "react";
 import styled from 'styled-components'
 import axios from "axios";
 
-function Detail(id) {
+function Detail({id, detailRenderer,setDetailRenderer}) {
   const [data, setData] = useState([]);
   const [err, setErr] = useState(false)
 
@@ -31,6 +31,9 @@ function Detail(id) {
 
         </DetailInformation> :
         <ErrorHandler>{err}</ErrorHandler>}
+        <ButtonHandler onClick={() => {
+          setDetailRenderer(!detailRenderer)
+        }}></ButtonHandler>
     </Container>
   </Fragment>;
 }
@@ -63,4 +66,10 @@ const NameInformation = styled.h1`
 
 const ErrorHandler = styled.div`
   color: white;
+`;
+
+const ButtonHandler = styled.button`
+  height: 100px;
+  width: 300px;
+  background-color: white;
 `;
