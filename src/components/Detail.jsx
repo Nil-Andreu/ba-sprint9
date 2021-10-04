@@ -21,6 +21,7 @@ function Detail() {
         
       )
       setData(result)
+      console.log(data)
     };
 
     FetchUrl();
@@ -29,6 +30,9 @@ function Detail() {
   return <Fragment>
     <Container>
       {(!err) ? <DetailInformation>
+        <NameInformation>{data.name}</NameInformation>
+
+
         </DetailInformation> :
         <ErrorHandler>{err}</ErrorHandler>}
     </Container>
@@ -47,7 +51,19 @@ border-top: 1px solid white;
   align-items: center;
 `;
 
-const DetailInformation = styled.div``;
+const DetailInformation = styled.div`
+  height: 80vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid red;
+
+`;
+
+const NameInformation = styled.h1`
+  color: white;
+
+`;
 
 const ErrorHandler = styled.div`
   color: white;
