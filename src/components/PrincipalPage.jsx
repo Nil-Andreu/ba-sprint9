@@ -5,10 +5,10 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function PrincipalPage() {
-  const [url, setUrl] = useState("https://swapi.dev/api/starships/");
   const [buttonList, setButtonList] = useState(false);
   const [data, setData] = useState([]);
   const [idRenderer, setIdRenderer] = useState(false);
+  const [page, setPage] = useState(1);
 
   let buttonListHandler = (number) => {
     if (number == 1) {
@@ -20,13 +20,32 @@ function PrincipalPage() {
 
   useEffect(() => {
     // We create the function with axios
+    let url = `https://swapi.dev/api/starships/?page=${page}`
+
     const FetchUrl = async (urlQuery) => {
       let result = await axios(urlQuery);
-      console.log(result);
-      setData(result.data.results);
+        console.log(result);
+        setData(result.data.results)
+      
     };
+
     FetchUrl(url);
-  }, [url]);
+  }, []);
+
+  /*useEffect(() => {
+    // We create the function with axios
+    let url = `https://swapi.dev/api/starships/?page=${page}`
+
+    const FetchUrl = async (urlQuery) => {
+      let result = await axios(urlQuery);
+        console.log(result);
+        setData(data.push(result.data.results))
+      
+    };
+
+    FetchUrl(url);
+  }, [page]);*/
+
 
   return (
     <Fragment>
@@ -71,7 +90,9 @@ function PrincipalPage() {
               );
             }
           })}
-          <LoadMoreButton>Load More</LoadMoreButton>
+          <LoadMoreButton onClick={() => setPage(page + 1)}>
+            Load More
+          </LoadMoreButton>
         </List>
       ) : (
         <HomePage />
@@ -163,8 +184,8 @@ const ListCardType = styled.h3`
 const LoadMoreButton = styled.button`
   align-self: center;
   margin-top: 10vh;
-  width: 40%;
-  height: 20vh;
+  max-width: 40%;
+  padding: 2rem 8rem;
   margin-bottom: 20vh;
   background-color: white;
   color: #000;
