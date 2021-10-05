@@ -50,13 +50,14 @@ function PrincipalPage() {
       </Navbar>
       {buttonList ? (
         <List>
-          {
-            
-            data.map((i) => {
-              console.log(data)
-              if (idRenderer == data.indexOf(i, 0) && typeof idRenderer == "number") {
-                return (<Detail i={i} setIdRenderer={setIdRenderer}/>)
-              } else {
+          {data.map((i) => {
+            console.log(data);
+            if (
+              idRenderer == data.indexOf(i, 0) &&
+              typeof idRenderer == "number"
+            ) {
+              return <Detail i={i} setIdRenderer={setIdRenderer} />;
+            } else {
               return (
                 <ListCard
                   key={i.name}
@@ -67,9 +68,10 @@ function PrincipalPage() {
                   <ListCardTitle>{i.name}</ListCardTitle>
                   <ListCardType>{i.model}</ListCardType>
                 </ListCard>
-              );}
-            })
-          }
+              );
+            }
+          })}
+          <LoadMoreButton>Load More</LoadMoreButton>
         </List>
       ) : (
         <HomePage />
@@ -155,6 +157,18 @@ const ListCardType = styled.h3`
   font-size: 0.5rem;
   text-transform: uppercase;
   color: #999999;
+`;
+
+// This button when onclick, will load new data and will append this to the data we already have
+const LoadMoreButton = styled.button`
+  align-self: center;
+  margin-top: 10vh;
+  width: 40%;
+  height: 20vh;
+  margin-bottom: 20vh;
+  background-color: white;
+  color: #000;
+  font-family: "Roboto Mono", "Arial";
 `;
 
 export default PrincipalPage;

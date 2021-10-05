@@ -9,6 +9,7 @@ function Detail({ i, setIdRenderer }) {
       <Container>
         <DetailInformation>
           <NameInformation>{i.name}</NameInformation>
+          <ModelInformation>{i.model}</ModelInformation>
           <ContainerInformation>
             <div>The MLGT of the starship is {i.MGLT}</div>
             <div>Cargo Capacity of the starship is {i.cargo_capacity}</div>
@@ -41,7 +42,7 @@ export default Detail;
 const Container = styled.div`
   margin: auto;
   border-top: 1px solid white;
-  height: 80vh;
+  height: auto;
   width: 100vw;
   background-color: #000;
   display: flex;
@@ -72,6 +73,11 @@ const ContainerInformation = styled.div`
 
 const NameInformation = styled.h1`
   color: white;
+`;
+
+const ModelInformation = styled.h3`
+  text-transform: uppercase;
+  margin-bottom: 8vh;
 `;
 
 const ErrorHandler = styled.div`
