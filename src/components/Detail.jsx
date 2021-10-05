@@ -1,8 +1,9 @@
 import React, { useEffect, useState, Fragment } from "react";
 import styled from 'styled-components'
+import {Link} from 'react-router-dom'
 import axios from "axios";
 
-function Detail({id}) {
+function Detail({id, setIdRenderer}) {
   const [data, setData] = useState([]);
   const [err, setErr] = useState(false)
 
@@ -34,7 +35,7 @@ function Detail({id}) {
         </DetailInformation> :
         <ErrorHandler>{err}</ErrorHandler>}
         <ButtonHandler 
-        ></ButtonHandler>
+        onClick={() => setIdRenderer(false)}></ButtonHandler>
     </Container>
   </Fragment>;
 }
@@ -42,6 +43,9 @@ function Detail({id}) {
 export default Detail;
 
 const Container = styled.div`
+position: fixed;
+top: 30vh;
+margin: auto;
 border-top: 1px solid white;
   height: 80vh;
   background-color: #000;

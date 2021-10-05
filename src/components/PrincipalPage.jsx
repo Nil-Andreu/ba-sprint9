@@ -8,7 +8,7 @@ function PrincipalPage() {
   const [url, setUrl] = useState("https://swapi.dev/api/starships/");
   const [buttonList, setButtonList] = useState(false);
   const [data, setData] = useState([]);
-  const [idRenderer, setIdRenderer] = useState(false)
+  const [idRenderer, setIdRenderer] = useState(false);
 
   // To handle the number of the startship
   let idStarship = 0;
@@ -53,24 +53,29 @@ function PrincipalPage() {
       </Navbar>
       {buttonList ? (
         <List>
-          {idRenderer ? <Detail id={idRenderer}/> : 
-            
+          {typeof idRenderer == "number" ? (
+            <Detail id={idRenderer} setIdRenderer={setIdRenderer} />
+          ) : (
+            /*We will need the following:
+            - idRenderer: to make the query with the id
+            - setIdRenderer: as will be a button that will make the change to the value of idRenderer: will be set to false
+            -  */
             data.map((i) => {
-            return (
-              <ListCard
-                key={idStarship}
-                onClick={() => {
-                  setIdRenderer(data.indexOf(i, 0))
+              idStarship += 1;
 
-                }}
-              >
-                <ListCardTitle>{i.name}</ListCardTitle>
-                <ListCardType>{i.model}</ListCardType>
-              </ListCard>
-            );
-          })}
-          
-          
+              return (
+                <ListCard
+                  key={idStarship}
+                  onClick={() => {
+                    setIdRenderer(data.indexOf(i, 0));
+                  }}
+                >
+                  <ListCardTitle>{i.name}</ListCardTitle>
+                  <ListCardType>{i.model}</ListCardType>
+                </ListCard>
+              );
+            })
+          )}
         </List>
       ) : (
         <HomePage />
