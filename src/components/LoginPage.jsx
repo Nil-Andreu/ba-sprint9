@@ -3,14 +3,15 @@ import styled from 'styled-components'
 import {useHistory,Link} from 'react-router-dom'
 
 const LoginPage = () => {
-    const Submit = () => {
+    /*const Submit = () => {
         // We will redirect when the button is clicked
         useHistory().push("starships/") 
-    }
+    }*/
     return (
         <Container>
             <LoginForm>
-                <Button onClick={Submit}></Button>
+                <h1>Welcome to the page</h1>
+                <Button to="starships/"></Button>
             </LoginForm>
         </Container>
     )
@@ -31,7 +32,7 @@ const LoginForm = styled.div`
     background-color: white;
 `;
 
-const Button = styled.button`
+const Button = styled(Link)`
     background-color: black;
     color: white;
   max-width: 40%;
