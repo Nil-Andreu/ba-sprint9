@@ -53,6 +53,7 @@ function PrincipalPage() {
           {
             
             data.map((i) => {
+              console.log(data)
               if (idRenderer == data.indexOf(i, 0) && typeof idRenderer == "number") {
                 return (<Detail i={i} setIdRenderer={setIdRenderer}/>)
               } else {
