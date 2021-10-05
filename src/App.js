@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import PrincipalPage from './components/PrincipalPage'
-import Detail from './components/Detail'
+import LoginPage from './components/LoginPage'
 import {Route, Switch} from 'react-router'
 import {BrowserRouter as Router} from 'react-router-dom'
 import './index.css'
@@ -20,6 +20,9 @@ function App() {
 
       <Switch>
         <Route exact path="/">
+          <LoginPage />
+        </Route>
+        <Route exact path="starships/">
           <PrincipalPage />
         </Route>
           
