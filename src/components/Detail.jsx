@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from "react";
 import styled from 'styled-components'
 import axios from "axios";
 
-function Detail({id, detailRenderer,setDetailRenderer}) {
+function Detail({id}) {
   const [data, setData] = useState([]);
   const [err, setErr] = useState(false)
 
@@ -10,7 +10,9 @@ function Detail({id, detailRenderer,setDetailRenderer}) {
 
     // We create the function with axios
     const FetchUrl = async () => {
-      let result = await axios.get(`https://swapi.dev/api/starships/${id}/?format=json`).then(
+      let url = `https://swapi.dev/api/starships/${id}/?format=json`
+      console.log(url)
+      let result = await axios.get(url).then(
         res => res.data
       ).catch( // For catching the errors
         error => {setErr(error.toString())
@@ -31,9 +33,8 @@ function Detail({id, detailRenderer,setDetailRenderer}) {
 
         </DetailInformation> :
         <ErrorHandler>{err}</ErrorHandler>}
-        <ButtonHandler onClick={() => {
-          setDetailRenderer(!detailRenderer)
-        }}></ButtonHandler>
+        <ButtonHandler 
+        ></ButtonHandler>
     </Container>
   </Fragment>;
 }

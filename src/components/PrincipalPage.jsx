@@ -9,6 +9,7 @@ function PrincipalPage() {
   const [buttonList, setButtonList] = useState(false);
   const [data, setData] = useState([]);
   const [detailRenderer, setDetailRenderer] = useState(false);
+  const [idRenderer, setIdRenderer] = useState(false)
 
   // To handle the number of the startship
   let idStarship = 0;
@@ -31,9 +32,9 @@ function PrincipalPage() {
     FetchUrl(url);
   }, [url]);
 
-  const DetailRenderedHandler = (idStarship) => {
-    setDetailRenderer(!detailRenderer)
-  }
+  const detailRenderedHandler = (idStarship) => {
+    
+  };
 
   return (
     <Fragment>
@@ -57,19 +58,24 @@ function PrincipalPage() {
       </Navbar>
       {buttonList ? (
         <List>
-          {data.map((i) => {
-            idStarship += 1;
-            if (detailRenderer == true) {
-              return <Detail key={idStarship} id={idStarship} setDetailRenderer={setDetailRenderer} detailRenderer={detailRenderer}/>;
-            } else {
-              return (
-                <ListCard key={idStarship} onClick={() => DetailRenderedHandler(idStarship)}>
-                  <ListCardTitle>{i.name}</ListCardTitle>
-                  <ListCardType>{i.model}</ListCardType>
-                </ListCard>
-              );
-            }
+          {idRenderer ? <Detail id={idRenderer}/> : 
+            
+            data.map((i) => {
+            return (
+              <ListCard
+                key={idStarship}
+                onClick={() => {
+                  setIdRenderer(data.indexOf(i, 0))
+
+                }}
+              >
+                <ListCardTitle>{i.name}</ListCardTitle>
+                <ListCardType>{i.model}</ListCardType>
+              </ListCard>
+            );
           })}
+          
+          
         </List>
       ) : (
         <HomePage />
