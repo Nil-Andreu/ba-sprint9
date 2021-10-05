@@ -3,37 +3,11 @@ import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 import axios from "axios";
 
-function Detail({id, setIdRenderer}) {
-  const [data, setData] = useState([]);
-  const [err, setErr] = useState(false)
-
-  useEffect(() => {
-
-    // We create the function with axios
-    const FetchUrl = async () => {
-      let url = `https://swapi.dev/api/starships/${id}/?format=json`
-      console.log(url)
-      let result = await axios.get(url).then(
-        res => res.data
-      ).catch( // For catching the errors
-        error => {setErr(error.toString())
-        }
-        
-      )
-      setData(result)
-    };
-
-    FetchUrl();
-  }, []);
-
+function Detail({i, setIdRenderer}) {
+  
   return <Fragment>
     <Container>
-      {(!err) ? <DetailInformation>
-        <NameInformation>{data.name}</NameInformation>
-
-
-        </DetailInformation> :
-        <ErrorHandler>{err}</ErrorHandler>}
+      <NameInformation>{i.name}</NameInformation>
         <ButtonHandler 
         onClick={() => setIdRenderer(false)}></ButtonHandler>
     </Container>
@@ -43,14 +17,12 @@ function Detail({id, setIdRenderer}) {
 export default Detail;
 
 const Container = styled.div`
-position: fixed;
-top: 30vh;
 margin: auto;
 border-top: 1px solid white;
   height: 80vh;
   background-color: #000;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
@@ -74,7 +46,6 @@ const ErrorHandler = styled.div`
 `;
 
 const ButtonHandler = styled.button`
-  height: 100px;
-  width: 300px;
+  padding: 3rem 10rem;
   background-color: white;
 `;

@@ -10,9 +10,6 @@ function PrincipalPage() {
   const [data, setData] = useState([]);
   const [idRenderer, setIdRenderer] = useState(false);
 
-  // To handle the number of the startship
-  let idStarship = 0;
-
   let buttonListHandler = (number) => {
     if (number == 1) {
       setButtonList(false);
@@ -53,19 +50,15 @@ function PrincipalPage() {
       </Navbar>
       {buttonList ? (
         <List>
-          {typeof idRenderer == "number" ? (
-            <Detail id={idRenderer} setIdRenderer={setIdRenderer} />
-          ) : (
-            /*We will need the following:
-            - idRenderer: to make the query with the id
-            - setIdRenderer: as will be a button that will make the change to the value of idRenderer: will be set to false
-            -  */
+          {
+            
             data.map((i) => {
-              idStarship += 1;
-
+              if (idRenderer == data.indexOf(i, 0) && typeof idRenderer == "number") {
+                return (<Detail i={i} setIdRenderer={setIdRenderer}/>)
+              } else {
               return (
                 <ListCard
-                  key={idStarship}
+                  key={i.name}
                   onClick={() => {
                     setIdRenderer(data.indexOf(i, 0));
                   }}
@@ -73,9 +66,9 @@ function PrincipalPage() {
                   <ListCardTitle>{i.name}</ListCardTitle>
                   <ListCardType>{i.model}</ListCardType>
                 </ListCard>
-              );
+              );}
             })
-          )}
+          }
         </List>
       ) : (
         <HomePage />
