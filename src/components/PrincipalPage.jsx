@@ -8,7 +8,6 @@ function PrincipalPage() {
   const [url, setUrl] = useState("https://swapi.dev/api/starships/");
   const [buttonList, setButtonList] = useState(false);
   const [data, setData] = useState([]);
-  const [detailRenderer, setDetailRenderer] = useState(false);
   const [idRenderer, setIdRenderer] = useState(false)
 
   // To handle the number of the startship
@@ -31,10 +30,6 @@ function PrincipalPage() {
     };
     FetchUrl(url);
   }, [url]);
-
-  const detailRenderedHandler = (idStarship) => {
-    
-  };
 
   return (
     <Fragment>
