@@ -62,7 +62,7 @@ const DetailInformation = styled.div`
 `;
 
 const ContainerInformation = styled.div`
-  width: 100%;
+  width: 100vw;
   display: grid;
   grid-template-columns: 30% 30%;
   grid-template-rows: 8vh;

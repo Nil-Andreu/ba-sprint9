@@ -32,19 +32,23 @@ function PrincipalPage() {
     FetchUrl(url);
   }, []);
 
-  /*useEffect(() => {
+  useEffect(() => {
     // We create the function with axios
     let url = `https://swapi.dev/api/starships/?page=${page}`
 
     const FetchUrl = async (urlQuery) => {
       let result = await axios(urlQuery);
         console.log(result);
-        setData(data.push(result.data.results))
-      
+        let data_incoming = result.data.results
+        let new_data = [...data, ...data_incoming] //Spreading in a new array the data we had and the new data
+        setData(new_data)
     };
 
-    FetchUrl(url);
-  }, [page]);*/
+    // The maximum amount of pages that there are:
+    if (page > 0 && page < 5) {
+      FetchUrl(url);
+    }
+  }, [page]);
 
 
   return (
@@ -90,9 +94,12 @@ function PrincipalPage() {
               );
             }
           })}
+          {(page > 0 && page < 4) ? 
           <LoadMoreButton onClick={() => setPage(page + 1)}>
             Load More
-          </LoadMoreButton>
+          </LoadMoreButton> : <InformationPage>
+              No more pages to load
+            </InformationPage>}
         </List>
       ) : (
         <HomePage />
@@ -189,6 +196,13 @@ const LoadMoreButton = styled.button`
   margin-bottom: 20vh;
   background-color: white;
   color: #000;
+  font-family: "Roboto Mono", "Arial";
+`;
+
+const InformationPage = styled.p`
+  align-self: center;
+  margin-bottom: 10vh;
+  color: red;
   font-family: "Roboto Mono", "Arial";
 `;
 
