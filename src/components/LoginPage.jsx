@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory, Redirect } from "react-router-dom";
 
+// We obtain those values before the component is rendered, to be able to redirect directly
 let isEmail = window.localStorage.getItem("email");
 let isPassword = window.localStorage.getItem("password");
 let isAuth = false;
