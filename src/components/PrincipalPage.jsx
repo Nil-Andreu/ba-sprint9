@@ -4,14 +4,25 @@ import styled from "styled-components";
 import axios from "axios";
 import { useHistory, Redirect } from "react-router-dom";
 
+// For handling the auth (we do this not inside of the component, as we want to handle it before it is rendered)
+/* Had a problem as i tried to define this inside of the component. And what happened is that i could not update the value of auth after the first renderer,
+so it was always redirected */
+let email = window.localStorage.getItem("email");
+let password = window.localStorage.getItem("password");
+let auth = false;
+
+if (email == null || password == null) {
+} else {
+  auth = true;
+}
+
 function PrincipalPage() {
   const [buttonList, setButtonList] = useState(false);
   const [data, setData] = useState([]);
   const [idRenderer, setIdRenderer] = useState(false);
   const [page, setPage] = useState(1);
-  const [emailUser, setEmailUser] = useState("");
-  const [passwordUser, setPasswordUser] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [emailUser, setEmailUser] = useState(email);
+  const [passwordUser, setPasswordUser] = useState(password);
 
   let buttonListHandler = (number) => {
     if (number == 1) {
@@ -20,22 +31,6 @@ function PrincipalPage() {
       setButtonList(true);
     }
   };
-
-  
-  // For handling the authentication
-  useEffect(() => {
-    let email = window.localStorage.getItem("email");
-    let password = window.localStorage.getItem("password");
-    console.log(email, password)
-
-    if (email == null && password == null) {
-    } else {
-      setIsAuthenticated(true);
-      // We set those values for the user
-      setEmailUser(email);
-      setPasswordUser(password);
-    }
-  }, []);
 
   // For handling first queryset
   useEffect(() => {
@@ -75,74 +70,74 @@ function PrincipalPage() {
 
   // Function for handling what will be rendered
   const RenderingFunction = () => {
-    if (isAuthenticated == true) { // In the case the user is authenticated
-      return (<Fragment>
-        <Navbar>
-          <Button
-            checked={buttonList}
-            onClick={() => {
-              buttonListHandler(1);
-            }}
-          >
-            Home
-          </Button>
-          <Button
-            checked={buttonList}
-            onClick={() => {
-              buttonListHandler(2);
-            }}
-          >
-            Starthips
-          </Button>
-        </Navbar>
-        {buttonList ? (
-          <List>
-            {data.map((i) => {
-              console.log(data);
-              if (
-                idRenderer == data.indexOf(i, 0) &&
-                typeof idRenderer == "number"
-              ) {
-                return <Detail i={i} setIdRenderer={setIdRenderer} />;
-              } else {
-                return (
-                  <ListCard
-                    key={i.name}
-                    onClick={() => {
-                      setIdRenderer(data.indexOf(i, 0));
-                    }}
-                  >
-                    <ListCardTitle>{i.name}</ListCardTitle>
-                    <ListCardType>{i.model}</ListCardType>
-                  </ListCard>
-                );
-              }
-            })}
-            {page > 0 && page < 4 ? (
-              <LoadMoreButton onClick={() => setPage(page + 1)}>
-                Load More
-              </LoadMoreButton>
-            ) : (
-              <InformationPage>No more pages to load</InformationPage>
-            )}
-          </List>
-        ) : (
-          <HomePage>
-            {emailUser}
-            {passwordUser}
-          </HomePage>
-        )}
-      </Fragment>)
-    } else { // In the case it is false
+    if (auth == true) {
+      // In the case the user is authenticated
       return (
-        <Redirect to="/" />
-      )
+        <Fragment>
+          <Navbar>
+            <Button
+              checked={buttonList}
+              onClick={() => {
+                buttonListHandler(1);
+              }}
+            >
+              Home
+            </Button>
+            <Button
+              checked={buttonList}
+              onClick={() => {
+                buttonListHandler(2);
+              }}
+            >
+              Starthips
+            </Button>
+          </Navbar>
+          {buttonList ? (
+            <List>
+              {data.map((i) => {
+                console.log(data);
+                if (
+                  idRenderer == data.indexOf(i, 0) &&
+                  typeof idRenderer == "number"
+                ) {
+                  return <Detail i={i} setIdRenderer={setIdRenderer} />;
+                } else {
+                  return (
+                    <ListCard
+                      key={i.name}
+                      onClick={() => {
+                        setIdRenderer(data.indexOf(i, 0));
+                      }}
+                    >
+                      <ListCardTitle>{i.name}</ListCardTitle>
+                      <ListCardType>{i.model}</ListCardType>
+                    </ListCard>
+                  );
+                }
+              })}
+              {page > 0 && page < 4 ? (
+                <LoadMoreButton onClick={() => setPage(page + 1)}>
+                  Load More
+                </LoadMoreButton>
+              ) : (
+                <InformationPage>No more pages to load</InformationPage>
+              )}
+            </List>
+          ) : (
+            <HomePage>
+              {emailUser}
+              {passwordUser}
+            </HomePage>
+          )}
+        </Fragment>
+      );
+    } else {
+      // In the case it is false
+      return <Redirect to="/" />;
     }
-  }
+  };
 
-  return (
-    RenderingFunction()
-  );
+  return RenderingFunction();
 }
 
 const Navbar = styled.div`
