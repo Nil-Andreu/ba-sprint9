@@ -2,13 +2,16 @@ import React, { Fragment, useEffect, useState } from "react";
 import Detail from "./Detail.jsx";
 import styled from "styled-components";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 
 function PrincipalPage() {
   const [buttonList, setButtonList] = useState(false);
   const [data, setData] = useState([]);
   const [idRenderer, setIdRenderer] = useState(false);
   const [page, setPage] = useState(1);
+  const [nameUser, setNameUser] = useState("");
+  const [gmailUser, setGmailUser] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   let buttonListHandler = (number) => {
     if (number == 1) {
@@ -18,96 +21,126 @@ function PrincipalPage() {
     }
   };
 
+  
+  // For handling the authentication
   useEffect(() => {
-    // We create the function with axios
-    let url = `https://swapi.dev/api/starships/?page=${page}`
+    let name = window.localStorage.getItem("name");
+    let gmail = window.localStorage.getItem("gmail");
+
+    if (name == false && gmail == false) {
+    } else {
+      setIsAuthenticated(true);
+      // We set those values for the user
+      setNameUser(name);
+      setGmailUser(gmail);
+    }
+  }, []);
+
+  // For handling first queryset
+  useEffect(() => {
+    // We create the function with axios for querying the page
+    let url = `https://swapi.dev/api/starships/?page=${page}`;
 
     const FetchUrl = async (urlQuery) => {
       let result = await axios(urlQuery);
-        console.log(result);
-        setData(result.data.results)
-      
+      console.log(result);
+      setData(result.data.results);
     };
 
     FetchUrl(url);
   }, []);
 
+  // For handling the querysets of the button click
   useEffect(() => {
     // We create the new url with the new page number
-    let url = `https://swapi.dev/api/starships/?page=${page}`
+    let url = `https://swapi.dev/api/starships/?page=${page}`;
 
     const FetchUrl = async (urlQuery) => {
       let result = await axios(urlQuery);
-        console.log(result);
-        // Obtain which will be the data for this new pagination
-        let data_incoming = result.data.results
-        //Spreading in a new array the data we had and the new data
-        let new_data = [...data, ...data_incoming] 
-        setData(new_data)
+      console.log(result);
+      // Obtain which will be the data for this new pagination
+      let data_incoming = result.data.results;
+      //Spreading in a new array the data we had and the new data
+      let new_data = [...data, ...data_incoming];
+      setData(new_data);
     };
 
     // The maximum amount of pages that there are, so we only make the fetch when there are more
     if (page > 0 && page < 5) {
       FetchUrl(url);
     }
-    // We will also create a handler for this
+    // We will also create a handler for this inside of the component
   }, [page]);
 
+  // Function for handling what will be rendered
+  const RenderingFunction = () => {
+    if (isAuthenticated == true) { // In the case the user is authenticated
+      return (<Fragment>
+        <Navbar>
+          <Button
+            checked={buttonList}
+            onClick={() => {
+              buttonListHandler(1);
+            }}
+          >
+            Home
+          </Button>
+          <Button
+            checked={buttonList}
+            onClick={() => {
+              buttonListHandler(2);
+            }}
+          >
+            Starthips
+          </Button>
+        </Navbar>
+        {buttonList ? (
+          <List>
+            {data.map((i) => {
+              console.log(data);
+              if (
+                idRenderer == data.indexOf(i, 0) &&
+                typeof idRenderer == "number"
+              ) {
+                return <Detail i={i} setIdRenderer={setIdRenderer} />;
+              } else {
+                return (
+                  <ListCard
+                    key={i.name}
+                    onClick={() => {
+                      setIdRenderer(data.indexOf(i, 0));
+                    }}
+                  >
+                    <ListCardTitle>{i.name}</ListCardTitle>
+                    <ListCardType>{i.model}</ListCardType>
+                  </ListCard>
+                );
+              }
+            })}
+            {page > 0 && page < 4 ? (
+              <LoadMoreButton onClick={() => setPage(page + 1)}>
+                Load More
+              </LoadMoreButton>
+            ) : (
+              <InformationPage>No more pages to load</InformationPage>
+            )}
+          </List>
+        ) : (
+          <HomePage>
+            {nameUser}
+            {gmailUser}
+          </HomePage>
+        )}
+      </Fragment>)
+    } else { // In the case it is false
+      return (
+        <Redirect to="/" />
+      )
+    }
+  }
 
   return (
-    <Fragment>
-      <Navbar>
-        <Button
-          checked={buttonList}
-          onClick={() => {
-            buttonListHandler(1);
-          }}
-        >
-          Home
-        </Button>
-        <Button
-          checked={buttonList}
-          onClick={() => {
-            buttonListHandler(2);
-          }}
-        >
-          Starthips
-        </Button>
-      </Navbar>
-      {buttonList ? (
-        <List>
-          {data.map((i) => {
-            console.log(data);
-            if (
-              idRenderer == data.indexOf(i, 0) &&
-              typeof idRenderer == "number"
-            ) {
-              return <Detail i={i} setIdRenderer={setIdRenderer} />;
-            } else {
-              return (
-                <ListCard
-                  key={i.name}
-                  onClick={() => {
-                    setIdRenderer(data.indexOf(i, 0));
-                  }}
-                >
-                  <ListCardTitle>{i.name}</ListCardTitle>
-                  <ListCardType>{i.model}</ListCardType>
-                </ListCard>
-              );
-            }
-          })}
-          {(page > 0 && page < 4) ? 
-          <LoadMoreButton onClick={() => setPage(page + 1)}>
-            Load More
-          </LoadMoreButton> : <InformationPage>
-              No more pages to load
-            </InformationPage>}
-        </List>
-      ) : (
-        <HomePage />
-      )}
-    </Fragment>
+    RenderingFunction()
   );
 }
 

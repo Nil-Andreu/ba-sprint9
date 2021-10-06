@@ -1,30 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const LoginPage = () => {
-    let history = useHistory()
+  let history = useHistory();
+  const [name, setName] = useState(false);
+  const [email, setEmail] = useState(false);
 
-    const SubtmitHandler = (e) => {
-        e.preventDefault()
-        history.push("/starships/")
-    }
+  const SubtmitHandler = (e) => {
+    e.preventDefault();
+    window.localStorage.setItem("name", name);
+    window.localStorage.setItem("email", email)
+    history.push("/starships/"); // Will redirect to the url we want to use
+  };
 
   return (
     <Container>
       <LoginForm>
         <h1>Welcome to Star Wars App</h1>
-        <form onSubmit={e => SubtmitHandler(e)}>
+        <Form onSubmit={(e) => SubtmitHandler(e)}>
           <div>
             <label htmlFor="">Enter your email:</label>
-            <input type="text" />
+            <input type="text" onChange={(e) => setName(e.target.value)} />
           </div>
           <div>
             <label htmlFor="">Enter your password:</label>
-            <input type="text" />
+            <input type="text" onChange={(e) => setEmail(e.target.value)} />
           </div>
-          <Button type="submit" >Enter to this app</Button>
-        </form>
+          <Button type="submit">Enter to this app</Button>
+        </Form>
       </LoginForm>
     </Container>
   );
@@ -47,6 +51,12 @@ const LoginForm = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+`;
+
+const Form = styled.form`
+  width: 70%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Button = styled.button`
