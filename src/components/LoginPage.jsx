@@ -4,13 +4,13 @@ import { useHistory } from "react-router-dom";
 
 const LoginPage = () => {
   let history = useHistory();
-  const [name, setName] = useState(false);
   const [email, setEmail] = useState(false);
+  const [password, setPassword] = useState(false);
 
   const SubtmitHandler = (e) => {
     e.preventDefault();
-    window.localStorage.setItem("name", name);
-    window.localStorage.setItem("email", email)
+    window.localStorage.setItem("email", email);
+    window.localStorage.setItem("password", password);
     history.push("/starships/"); // Will redirect to the url we want to use
   };
 
@@ -21,11 +21,11 @@ const LoginPage = () => {
         <Form onSubmit={(e) => SubtmitHandler(e)}>
           <div>
             <label htmlFor="">Enter your email:</label>
-            <input type="text" onChange={(e) => setName(e.target.value)} />
+            <input type="text" onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div>
             <label htmlFor="">Enter your password:</label>
-            <input type="text" onChange={(e) => setEmail(e.target.value)} />
+            <input type="text" onChange={(e) => setPassword(e.target.value)} />
           </div>
           <Button type="submit">Enter to this app</Button>
         </Form>

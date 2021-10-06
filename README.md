@@ -1,2 +1,2 @@
 - Separate more the components
-- Other exercises
+- Maybe is needed to handle authentication in the App.js

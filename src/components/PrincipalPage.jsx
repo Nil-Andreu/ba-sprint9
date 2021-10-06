@@ -9,8 +9,8 @@ function PrincipalPage() {
   const [data, setData] = useState([]);
   const [idRenderer, setIdRenderer] = useState(false);
   const [page, setPage] = useState(1);
-  const [nameUser, setNameUser] = useState("");
-  const [gmailUser, setGmailUser] = useState("");
+  const [emailUser, setEmailUser] = useState("");
+  const [passwordUser, setPasswordUser] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   let buttonListHandler = (number) => {
@@ -24,15 +24,16 @@ function PrincipalPage() {
   
   // For handling the authentication
   useEffect(() => {
-    let name = window.localStorage.getItem("name");
-    let gmail = window.localStorage.getItem("gmail");
+    let email = window.localStorage.getItem("email");
+    let password = window.localStorage.getItem("password");
+    console.log(email, password)
 
-    if (name == false && gmail == false) {
+    if (email == null && password == null) {
     } else {
       setIsAuthenticated(true);
       // We set those values for the user
-      setNameUser(name);
-      setGmailUser(gmail);
+      setEmailUser(email);
+      setPasswordUser(password);
     }
   }, []);
 
@@ -127,8 +128,8 @@ function PrincipalPage() {
           </List>
         ) : (
           <HomePage>
-            {nameUser}
-            {gmailUser}
+            {emailUser}
+            {passwordUser}
           </HomePage>
         )}
       </Fragment>)
