@@ -3,11 +3,28 @@ import styled from "styled-components";
 import { useHistory, Link } from "react-router-dom";
 
 const LoginPage = () => {
+    let history = useHistory()
+
+    const SubtmitHandler = (e) => {
+        e.preventDefault()
+        history.push("/starships/")
+    }
+
   return (
     <Container>
       <LoginForm>
         <h1>Welcome to Star Wars App</h1>
-        <Button to="starships/">Enter to this app</Button>
+        <form onSubmit={e => SubtmitHandler(e)}>
+          <div>
+            <label htmlFor="">Enter your email:</label>
+            <input type="text" />
+          </div>
+          <div>
+            <label htmlFor="">Enter your password:</label>
+            <input type="text" />
+          </div>
+          <Button type="submit" >Enter to this app</Button>
+        </form>
       </LoginForm>
     </Container>
   );
@@ -32,7 +49,7 @@ const LoginForm = styled.div`
   align-items: center;
 `;
 
-const Button = styled(Link)`
+const Button = styled.button`
   background-color: black;
   text-decoration: none;
   color: white;
