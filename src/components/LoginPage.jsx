@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
+
+let isEmail = window.localStorage.getItem("email");
+let isPassword = window.localStorage.getItem("password");
+let isAuth = false;
+if (isEmail == null || isPassword == null) {
+} else {
+  isAuth = true;
+}
 
 const LoginPage = () => {
   let history = useHistory();
@@ -14,24 +22,35 @@ const LoginPage = () => {
     history.push("/starships/"); // Will redirect to the url we want to use
   };
 
-  return (
-    <Container>
-      <LoginForm>
-        <h1>Welcome to Star Wars App</h1>
-        <Form onSubmit={(e) => SubtmitHandler(e)}>
-          <div>
-            <label htmlFor="">Enter your email:</label>
-            <input type="text" onChange={(e) => setEmail(e.target.value)} />
-          </div>
-          <div>
-            <label htmlFor="">Enter your password:</label>
-            <input type="text" onChange={(e) => setPassword(e.target.value)} />
-          </div>
-          <Button type="submit">Enter to this app</Button>
-        </Form>
-      </LoginForm>
-    </Container>
-  );
+  let AuthHandler = () => {
+    if (!isAuth) {
+      return (
+        <Container>
+          <LoginForm>
+            <h1>Welcome to Star Wars App</h1>
+            <Form onSubmit={(e) => SubtmitHandler(e)}>
+              <div>
+                <label htmlFor="">Enter your email:</label>
+                <input type="text" onChange={(e) => setEmail(e.target.value)} />
+              </div>
+              <div>
+                <label htmlFor="">Enter your password:</label>
+                <input
+                  type="text"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <Button type="submit">Enter to this app</Button>
+            </Form>
+          </LoginForm>
+        </Container>
+      );
+    } else {
+      return <Redirect to="/starships/" />;
+    }
+  };
+
+  return AuthHandler();
 };
 
 const Container = styled.div`
