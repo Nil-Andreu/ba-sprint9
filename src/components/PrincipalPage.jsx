@@ -125,8 +125,8 @@ function PrincipalPage() {
             </List>
           ) : (
             <HomePage>
-              {emailUser}
-              {passwordUser}
+              <h3>Welcome to this page! Thanks for logging</h3>
+              <p>You have been registered with: {emailUser}</p>
             </HomePage>
           )}
         </Fragment>
@@ -175,6 +175,14 @@ const Button = styled.button`
 const HomePage = styled.div`
   width: 100%;
   height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  p {
+    margin-top: 10vh;
+  }
 `;
 
 const List = styled.div`
