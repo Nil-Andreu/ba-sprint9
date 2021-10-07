@@ -2,31 +2,16 @@ import React, { useEffect, useState, Fragment } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import PilotsDetail from "./PilotsDetail"
 
 function Detail({ i, setIdRenderer }) {
-  // HANDLING PILOTS
-  let pilots = i.pilots
-  let pilotsArrayFetched = []
+  const [pilotsState, setPilotsState] = useState(false)
+  
 
-  // Define the function for fecthing the pilot values
-  let pilotFetch = async(pilotValue) => {
-    axios(pilotValue).then(
-      res => pilotsArrayFetched.push(res.data)
-    ).then(console.log(pilotsArrayFetched))
-  }
-
-  // We first check the length of the array, to see if there are any pilots
-  if (pilots.length == 0) {
-
-  } else {
-    for (let i in pilots) {
-      let value = pilots[i]
-      console.log(value)
-
-      pilotFetch(value)
-    }
-  }
-
+  // Now we can define a modal, for which we pass the data in the form of pilotArrayFetched[0]. And then when clicked a button, is a usestate that 
+  // increments the value to 1, so the modal is re-rendered with the new pilot data in the position [1]. Have to handle the max number by the length
+  // Here put a conditional rendering to a button to render a new component. In this component is where i fetch the data, and has a usestate to handle this 
+  // array. In the modal there is also a map of circles that are bold or not depending on the position of which pilot is rendered
   return (
     <Fragment>
       <Container>
@@ -52,9 +37,13 @@ function Detail({ i, setIdRenderer }) {
             <div>The maximum passengers are {i.passengers}</div>
           </ContainerInformation>
         </DetailInformation>
-        <ButtonHandler onClick={() => setIdRenderer(false)}>
+        <ButtonHandlerPilots onClick={() => setPilotsState(true)}>
+          Get the pilots
+        </ButtonHandlerPilots>
+        {pilotsState ? <PilotsDetail pilots={i.pilots}/> : ""}
+        <ButtonHandlerToNormal onClick={() => setIdRenderer(false)}>
           Return to normal
-        </ButtonHandler>
+        </ButtonHandlerToNormal>
       </Container>
     </Fragment>
   );
@@ -103,11 +92,7 @@ const ModelInformation = styled.h3`
   margin-bottom: 8vh;
 `;
 
-const ErrorHandler = styled.div`
-  color: white;
-`;
-
-const ButtonHandler = styled.button`
+const ButtonHandlerToNormal = styled.button`
 align-self: center;
 max-width: 40%;
   margin-bottom: 5vh;
@@ -116,4 +101,6 @@ max-width: 40%;
   color: #000;
   font-family: "Roboto Mono", "Arial";
 `;
+
+const ButtonHandlerPilots = styled.button``;
 
