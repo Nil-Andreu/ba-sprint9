@@ -5,35 +5,32 @@ import axios from "axios";
 import PilotsDetail from "./PilotsDetail";
 
 function Detail({ i, setIdRenderer }) {
-  const [pilotsState, setPilotsState] = useState(false);
+  const [pilotDetailsShow, setPilotDetailsShow] = useState(false);
+
+  let pilotState = false;
+  let pilotsDataValues = [];
   // HANDLING PILOTS
   let pilots = i.pilots; // array of all pilots urls
-  let pilotsArrayFetched = [];
 
-  // Define the function for fecthing the pilot values
-  let pilotFetch = async (pilotValue) => {
-    axios(pilotValue)
-      .then((res) => pilotsArrayFetched.push(res.data))
-      .then(console.log(pilotsArrayFetched));
-  };
-
-  // We first check the length of the array, to see if there are any pilots
   if (pilots.length == 0) {
-    console.log("no length");
   } else {
+    pilotState = true;
     // In the case that there are pilots, we will render the button
-    setPilotsState(true);
     for (let i in pilots) {
       let value = pilots[i];
+      console.log("This should be the url to query", value);
+
+      // Define the function for fecthing the pilot values
+      let pilotFetch = async (pilotValue) => {
+        axios(pilotValue).then((res) => {
+          pilotsDataValues[i] = res.data;
+          console.log(pilotsDataValues);
+        });
+      };
 
       pilotFetch(value);
     }
   }
-
-  let RenderPilotsDetails = () => {
-    console.log(pilotsArrayFetched);
-    return <PilotsDetail pilotsValues={pilotsArrayFetched} />;
-  };
 
   // Now we can define a modal, for which we pass the data in the form of pilotArrayFetched[0]. And then when clicked a button, is a usestate that
   // increments the value to 1, so the modal is re-rendered with the new pilot data in the position [1]. Have to handle the max number by the length
@@ -64,10 +61,19 @@ function Detail({ i, setIdRenderer }) {
             <div>The maximum passengers are {i.passengers}</div>
           </ContainerInformation>
         </DetailInformation>
-        {pilotsState ? (
-          <ButtonHandlerPilots onClick={RenderPilotsDetails} />
+        {pilotState ? (
+          <ButtonHandlerPilots
+            onClick={() => setPilotDetailsShow(true)}
+          >
+            See the pilots!
+          </ButtonHandlerPilots>
         ) : (
           <NoPilots>There are no pilots for this starship</NoPilots>
+        )}
+        {pilotDetailsShow ? (
+          <PilotsDetail pilotsValues={pilotsDataValues} PilotsShow={setPilotDetailsShow}/>
+        ) : (
+          ""
         )}
         <ButtonHandlerToNormal onClick={() => setIdRenderer(false)}>
           Return to normal
@@ -137,4 +143,15 @@ const NoPilots = styled.p`
   margin-bottom: 5vh;
 `;
 
-const ButtonHandlerPilots = styled.button``;
+const ButtonHandlerPilots = styled.button`
+  margin: auto;
+  width: 10vw;
+  background-color: gray;
+  color: black;
+  padding: 3vh 1vw;
+  margin-bottom: 2vh;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
