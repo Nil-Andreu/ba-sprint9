@@ -4,6 +4,29 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 function Detail({ i, setIdRenderer }) {
+  // HANDLING PILOTS
+  let pilots = i.pilots
+  let pilotsArrayFetched = []
+
+  // Define the function for fecthing the pilot values
+  let pilotFetch = async(pilotValue) => {
+    axios(pilotValue).then(
+      res => pilotsArrayFetched.push(res.data)
+    ).then(console.log(pilotsArrayFetched))
+  }
+
+  // We first check the length of the array, to see if there are any pilots
+  if (pilots.length == 0) {
+
+  } else {
+    for (let i in pilots) {
+      let value = pilots[i]
+      console.log(value)
+
+      pilotFetch(value)
+    }
+  }
+
   return (
     <Fragment>
       <Container>

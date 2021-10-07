@@ -1,2 +1,2 @@
 - Separate more the components
-- Maybe is needed to handle authentication in the App.js
+- Create a card for enumerating the pilots (like modal, and to change the modal for each pilot for every starships)

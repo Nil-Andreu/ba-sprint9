@@ -39,7 +39,6 @@ function PrincipalPage() {
 
     const FetchUrl = async (urlQuery) => {
       let result = await axios(urlQuery);
-      console.log(result);
       setData(result.data.results);
     };
 
@@ -53,7 +52,6 @@ function PrincipalPage() {
 
     const FetchUrl = async (urlQuery) => {
       let result = await axios(urlQuery);
-      console.log(result);
       // Obtain which will be the data for this new pagination
       let data_incoming = result.data.results;
       //Spreading in a new array the data we had and the new data
@@ -95,7 +93,6 @@ function PrincipalPage() {
           {buttonList ? (
             <List>
               {data.map((i) => {
-                console.log(data);
                 if (
                   idRenderer == data.indexOf(i, 0) &&
                   typeof idRenderer == "number"
