@@ -10,30 +10,28 @@ function Detail({ i, setIdRenderer }) {
   let pilots = i.pilots; // array of all pilots urls
   let pilotsArrayFetched = [];
 
-  useEffect(() => {
-    // Define the function for fecthing the pilot values
-    let pilotFetch = async (pilotValue) => {
-      axios(pilotValue)
-        .then((res) => pilotsArrayFetched.push(res.data))
-        .then(console.log(pilotsArrayFetched));
-    };
+  // Define the function for fecthing the pilot values
+  let pilotFetch = async (pilotValue) => {
+    axios(pilotValue)
+      .then((res) => pilotsArrayFetched.push(res.data))
+      .then(console.log(pilotsArrayFetched));
+  };
 
-    // We first check the length of the array, to see if there are any pilots
-    if (pilots.length == 0) {
-      console.log("no length");
-    } else {
-      // In the case that there are pilots, we will render the button
-      setPilotsState(true);
-      for (let i in pilots) {
-        let value = pilots[i];
+  // We first check the length of the array, to see if there are any pilots
+  if (pilots.length == 0) {
+    console.log("no length");
+  } else {
+    // In the case that there are pilots, we will render the button
+    setPilotsState(true);
+    for (let i in pilots) {
+      let value = pilots[i];
 
-        pilotFetch(value);
-      }
+      pilotFetch(value);
     }
-  }, []);
+  }
 
   let RenderPilotsDetails = () => {
-    console.log(pilotsArrayFetched)
+    console.log(pilotsArrayFetched);
     return <PilotsDetail pilotsValues={pilotsArrayFetched} />;
   };
 
@@ -118,7 +116,7 @@ const NameInformation = styled.h1`
 
 const ModelInformation = styled.h3`
   text-transform: uppercase;
-  margin-bottom: 8vh;
+  margin-bottom: 3vh;
 `;
 
 const ButtonHandlerToNormal = styled.button`
@@ -133,6 +131,10 @@ const ButtonHandlerToNormal = styled.button`
 
 const NoPilots = styled.p`
   width: 50%;
+  color: white;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 5vh;
 `;
 
 const ButtonHandlerPilots = styled.button``;
