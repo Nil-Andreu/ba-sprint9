@@ -2,15 +2,44 @@ import React, { useEffect, useState, Fragment } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import PilotsDetail from "./PilotsDetail"
+import PilotsDetail from "./PilotsDetail";
 
 function Detail({ i, setIdRenderer }) {
-  const [pilotsState, setPilotsState] = useState(false)
-  
+  const [pilotsState, setPilotsState] = useState(false);
+  // HANDLING PILOTS
+  let pilots = i.pilots; // array of all pilots urls
+  let pilotsArrayFetched = [];
 
-  // Now we can define a modal, for which we pass the data in the form of pilotArrayFetched[0]. And then when clicked a button, is a usestate that 
+  useEffect(() => {
+    // Define the function for fecthing the pilot values
+    let pilotFetch = async (pilotValue) => {
+      axios(pilotValue)
+        .then((res) => pilotsArrayFetched.push(res.data))
+        .then(console.log(pilotsArrayFetched));
+    };
+
+    // We first check the length of the array, to see if there are any pilots
+    if (pilots.length == 0) {
+      console.log("no length");
+    } else {
+      // In the case that there are pilots, we will render the button
+      setPilotsState(true);
+      for (let i in pilots) {
+        let value = pilots[i];
+
+        pilotFetch(value);
+      }
+    }
+  }, []);
+
+  let RenderPilotsDetails = () => {
+    console.log(pilotsArrayFetched)
+    return <PilotsDetail pilotsValues={pilotsArrayFetched} />;
+  };
+
+  // Now we can define a modal, for which we pass the data in the form of pilotArrayFetched[0]. And then when clicked a button, is a usestate that
   // increments the value to 1, so the modal is re-rendered with the new pilot data in the position [1]. Have to handle the max number by the length
-  // Here put a conditional rendering to a button to render a new component. In this component is where i fetch the data, and has a usestate to handle this 
+  // Here put a conditional rendering to a button to render a new component. In this component is where i fetch the data, and has a usestate to handle this
   // array. In the modal there is also a map of circles that are bold or not depending on the position of which pilot is rendered
   return (
     <Fragment>
@@ -37,10 +66,11 @@ function Detail({ i, setIdRenderer }) {
             <div>The maximum passengers are {i.passengers}</div>
           </ContainerInformation>
         </DetailInformation>
-        <ButtonHandlerPilots onClick={() => setPilotsState(true)}>
-          Get the pilots
-        </ButtonHandlerPilots>
-        {pilotsState ? <PilotsDetail pilots={i.pilots}/> : ""}
+        {pilotsState ? (
+          <ButtonHandlerPilots onClick={RenderPilotsDetails} />
+        ) : (
+          <NoPilots>There are no pilots for this starship</NoPilots>
+        )}
         <ButtonHandlerToNormal onClick={() => setIdRenderer(false)}>
           Return to normal
         </ButtonHandlerToNormal>
@@ -80,7 +110,6 @@ const ContainerInformation = styled.div`
   grid-template-rows: 8vh;
   justify-items: flex-start;
   margin-left: 40%;
-
 `;
 
 const NameInformation = styled.h1`
@@ -93,8 +122,8 @@ const ModelInformation = styled.h3`
 `;
 
 const ButtonHandlerToNormal = styled.button`
-align-self: center;
-max-width: 40%;
+  align-self: center;
+  max-width: 40%;
   margin-bottom: 5vh;
   padding: 2rem 8rem;
   background-color: white;
@@ -102,5 +131,8 @@ max-width: 40%;
   font-family: "Roboto Mono", "Arial";
 `;
 
-const ButtonHandlerPilots = styled.button``;
+const NoPilots = styled.p`
+  width: 50%;
+`;
 
+const ButtonHandlerPilots = styled.button``;

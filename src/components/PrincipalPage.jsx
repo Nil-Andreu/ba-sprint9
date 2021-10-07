@@ -38,8 +38,8 @@ function PrincipalPage() {
     let url = `https://swapi.dev/api/starships/?page=${page}`;
 
     const FetchUrl = async (urlQuery) => {
-      let result = await axios(urlQuery);
-      setData(result.data.results);
+      let result = await axios(urlQuery)
+      setData(result.data.results)
     };
 
     FetchUrl(url);
@@ -51,12 +51,11 @@ function PrincipalPage() {
     let url = `https://swapi.dev/api/starships/?page=${page}`;
 
     const FetchUrl = async (urlQuery) => {
-      let result = await axios(urlQuery);
-      // Obtain which will be the data for this new pagination
-      let data_incoming = result.data.results;
+      let result = await axios(urlQuery) // Obtain which will be the data for this new pagination
+      let data_incoming = result.data.results
       //Spreading in a new array the data we had and the new data
-      let new_data = [...data, ...data_incoming];
-      setData(new_data);
+      let new_data = [...data, ...data_incoming]
+      setData(new_data)
     };
 
     // The maximum amount of pages that there are, so we only make the fetch when there are more
