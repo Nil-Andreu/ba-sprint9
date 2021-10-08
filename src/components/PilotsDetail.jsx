@@ -15,22 +15,28 @@ function PilotsDetail({ pilotsURLs, PilotsShow }) {
       let url = pilotsURLs[id];
       console.log(url);
       // First we make the query to the url at the position of the id
-      let result = await axios(url)
-      setData(result.data)
-      
+      let result = await axios(url);
+      setData(result.data);
     };
 
     FetchUrl(0);
   }, []);
-
 
   return (
     <Container>
       <BoxPilots>
         <InformationContainer>
           <PilotName>{data.name}</PilotName>
-          <PilotGender></PilotGender>
+          <PilotGender>{data.gender}</PilotGender>
         </InformationContainer>
+        <InformationSubContainer>
+          <P>The weight is: {data.mass}</P>
+          <P>The birth date is: {data.birth_year}</P>
+          <P>The weight is: {data.mass}</P>
+          <P>The birth date is: {data.birth_year}</P>
+          <P>The weight is: {data.mass}</P>
+          <P>The birth date is: {data.birth_year}</P>
+        </InformationSubContainer>
         <ButtonContainer>
           <NextButton onClick={() => setPilotPosition(pilotPosition + 1)}>
             Next pilot
@@ -64,7 +70,7 @@ const BoxPilots = styled.div`
 `;
 
 const InformationContainer = styled.div`
-  height: 100%;
+  height: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -87,6 +93,17 @@ const InformationSubContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  height: 40%;
+  flex-wrap: wrap;
+
+`;
+
+const P = styled.p`
+  width: 20vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-left: 5vw;
 `;
 
 const ButtonContainer = styled.div`
