@@ -2,47 +2,27 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
-function PilotsDetail({ pilotsValues, PilotsShow }) {
+function PilotsDetail({ pilotsURLs, PilotsShow }) {
+  console.log(pilotsURLs)
   // We obtain which is the length of the pilot values
-  console.log("This is the data in the detail", pilotsValues);
-
-  let lengthPilots = pilotsValues.length;
+  let lengthPilots = pilotsURLs.length;
   let iterator = lengthPilots - 1;
   const [pilotPosition, setPilotPosition] = useState(0);
-  const [pilot, setPilot] = useState([]);
-  const [pilotName, setPilotName] = useState("");
-  const [pilotGender, setPilotGender] = useState("");
-  const [pilotHeight, setPilotHeight] = useState("");
-  const [pilotMass, setPilotMass] = useState("");
-  const [pilotBirth, setPilotBirth] = useState("");
-  const [pilotEyeColor, setPilotEyeColor] = useState("");
-  const [pilotSkinColor, setPilotSkinColor] = useState("");
+  const [pilot, setPilot] = useState("");
+
+  // Will develop 
+  const FetchUrl = async (id) => {
+
+  }
 
   useEffect(() => {
-    // We incremented for exapmle pilotposition in 1. If we are in posiiton 2 and the length is of 2, we are out of array index. So we set to 0 again
-    if (pilotPosition <= iterator) {
-      setPilot(pilotsValues[pilotPosition]); // We handle the new pilot
-    } else {
-      setPilotPosition(0);
-      setPilot(pilotsValues[pilotPosition]);
-    }
 
-    /*For the pilots, we have the following values:
-    - Birth day
-    - Eye color
-    - Gender
-    - Hair color
-    - Height
-    - Mass
-    - Name
-    - Skin color*/
-    setPilotName(pilot.name);
-    setPilotGender(pilot.gender);
-    setPilotHeight(pilot.height);
-    setPilotMass(pilot.mass);
-    setPilotBirth(pilot.birth_year);
-    setPilotEyeColor(pilot.eye_color);
-    setPilotSkinColor(pilot.skin_color);
+    // We will first make the query for the first position
+  }, []);
+
+  // For handling changes in the pilot position
+  useEffect(() => {
+    
 
     // Every time we change the pilot we are looking for, will update the data
   }, [pilotPosition]);
@@ -51,11 +31,7 @@ function PilotsDetail({ pilotsValues, PilotsShow }) {
     <Container>
       <BoxPilots>
         <InformationContainer>
-          <PilotName>{pilotName}</PilotName>
-          <PilotGender>{pilotGender.toUpperCase()}</PilotGender>
-          <InformationSubContainer>
-
-          </InformationSubContainer>
+          
         </InformationContainer>
         <ButtonContainer>
           <NextButton onClick={() => setPilotPosition(pilotPosition + 1)}>
@@ -86,7 +62,6 @@ const BoxPilots = styled.div`
   background-color: white;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
 `;
 
@@ -106,12 +81,7 @@ const PilotGender = styled.h6`
   display: block;
   width: 100%;
   text-align: center;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  text-transform: uppercase;
 `;
 
 const InformationSubContainer = styled.div`
@@ -121,7 +91,12 @@ const InformationSubContainer = styled.div`
   align-items: center;
 `;
 
-
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+`;
 
 const NextButton = styled.button``;
 

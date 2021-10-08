@@ -8,15 +8,14 @@ function Detail({ i, setIdRenderer }) {
   const [pilotDetailsShow, setPilotDetailsShow] = useState(false);
 
   let pilotState = false;
-  let pilotsDataValues = [];
   // HANDLING PILOTS
-  let pilots = i.pilots; // array of all pilots urls
+  let pilotsURLs = i.pilots; // array of all pilots urls
 
-  if (pilots.length == 0) {
+  if (pilotsURLs.length == 0) {
   } else {
     pilotState = true;
     // In the case that there are pilots, we will render the button
-    for (let i in pilots) {
+    /*for (let i in pilots) {
       let value = pilots[i];
 
       // Define the function for fecthing the pilot values
@@ -27,7 +26,7 @@ function Detail({ i, setIdRenderer }) {
       };
 
       pilotFetch(value);
-    }
+    }*/
   }
 
   // Now we can define a modal, for which we pass the data in the form of pilotArrayFetched[0]. And then when clicked a button, is a usestate that
@@ -69,7 +68,7 @@ function Detail({ i, setIdRenderer }) {
           <NoPilots>There are no pilots for this starship</NoPilots>
         )}
         {pilotDetailsShow ? (
-          <PilotsDetail pilotsValues={pilotsDataValues} PilotsShow={setPilotDetailsShow}/>
+          <PilotsDetail pilotsURLs={pilotsURLs} PilotsShow={setPilotDetailsShow}/>
         ) : (
           ""
         )}
