@@ -135,7 +135,7 @@ const ContainerCircles = styled.div`
   left: 0;
   width: 30px;
   top: 15vh;
-  left: 1vw;
+  left: 1.5vw;
   bottom: auto;
   display: flex;
   flex-direction: column;
