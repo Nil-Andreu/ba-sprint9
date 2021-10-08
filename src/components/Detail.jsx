@@ -3,36 +3,29 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import PilotsDetail from "./PilotsDetail";
+import FilmsDetail from "./FilmsDetail"
 
 function Detail({ i, setIdRenderer }) {
   const [pilotDetailsShow, setPilotDetailsShow] = useState(false);
+  const [filmDetailsShow, setFilmDetailShow] = useState(false);
+
 
   let pilotState = false;
+  let filmState = false
   // HANDLING PILOTS
   let pilotsURLs = i.pilots; // array of all pilots urls
-
+  let filmsURLs = i.films
   if (pilotsURLs.length == 0) {
   } else {
     pilotState = true;
-    // In the case that there are pilots, we will render the button
-    /*for (let i in pilots) {
-      let value = pilots[i];
-
-      // Define the function for fecthing the pilot values
-      let pilotFetch = async (pilotValue) => {
-        axios(pilotValue).then((res) => {
-          pilotsDataValues[i] = res.data;
-        });
-      };
-
-      pilotFetch(value);
-    }*/
   }
 
-  // Now we can define a modal, for which we pass the data in the form of pilotArrayFetched[0]. And then when clicked a button, is a usestate that
-  // increments the value to 1, so the modal is re-rendered with the new pilot data in the position [1]. Have to handle the max number by the length
-  // Here put a conditional rendering to a button to render a new component. In this component is where i fetch the data, and has a usestate to handle this
-  // array. In the modal there is also a map of circles that are bold or not depending on the position of which pilot is rendered
+  if (filmsURLs.length == 0) {
+
+  } else {
+    filmState = true
+  }
+
   return (
     <Fragment>
       <Container>
@@ -58,17 +51,20 @@ function Detail({ i, setIdRenderer }) {
             <div>The maximum passengers are {i.passengers}</div>
           </ContainerInformation>
         </DetailInformation>
+        {filmState ? <ButtonHandlerFilms onClick={() => setFilmDetailShow(true)}>See the films</ButtonHandlerFilms> : <NoInfo>There are no films available</NoInfo>}
+        {filmDetailsShow ? <FilmsDetail filmsURLs={filmsURLs} FilmsShow={setFilmDetailShow}/>: ""}
         {pilotState ? (
-          <ButtonHandlerPilots
-            onClick={() => setPilotDetailsShow(true)}
-          >
+          <ButtonHandlerPilots onClick={() => setPilotDetailsShow(true)}>
             See the pilots!
           </ButtonHandlerPilots>
         ) : (
-          <NoPilots>There are no pilots for this starship</NoPilots>
+          <NoInfo>There are no pilots for this starship</NoInfo>
         )}
         {pilotDetailsShow ? (
-          <PilotsDetail pilotsURLs={pilotsURLs} PilotsShow={setPilotDetailsShow}/>
+          <PilotsDetail
+            pilotsURLs={pilotsURLs}
+            PilotsShow={setPilotDetailsShow}
+          />
         ) : (
           ""
         )}
@@ -132,12 +128,26 @@ const ButtonHandlerToNormal = styled.button`
   font-family: "Roboto Mono", "Arial";
 `;
 
-const NoPilots = styled.p`
+const NoInfo = styled.p`
   width: 50%;
   color: white;
   margin: auto;
   text-align: center;
   margin-bottom: 5vh;
+`;
+
+const ButtonHandlerFilms = styled.button`
+  margin: auto;
+  width: 10vw;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 3vh 1vw;
+  margin-bottom: 2vh;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 const ButtonHandlerPilots = styled.button`
