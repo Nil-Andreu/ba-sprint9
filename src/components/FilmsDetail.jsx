@@ -55,7 +55,16 @@ function FilmsDetail({ filmsURLs, FilmsShow }) {
           <CloseButton onClick={() => FilmsShow(false)}>Close</CloseButton>
         </ButtonContainer>
       </BoxPilots>
-      <ContainerCircles>{filmsURLs.map((i) => {})}</ContainerCircles>
+      <ContainerCircles>
+        {filmsURLs.map((i) => {
+            if (filmsURLs.indexOf(i, 0) == filmPosition) { // If we are in the same position of the film being rendered
+                return <CircleActivated />;
+
+            } else {
+                return <CircleDesactivated />
+            }
+        })}
+      </ContainerCircles>
     </Container>
   );
 }
@@ -139,14 +148,29 @@ const NextButton = styled.button`
 
 const ContainerCircles = styled.div`
   position: absolute;
-  left: 30vw;
-  z-index: 4;
+  left: 27vw;
   width: 30px;
   top: 40vh;
   bottom: 40vh;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   height: 20vh;
+`;
+
+const CircleActivated = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
   background-color: black;
+`;
+
+const CircleDesactivated = styled.div`
+    width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background-color: gray;
 `;
 
 const CloseButton = styled.button`

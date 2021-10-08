@@ -30,12 +30,12 @@ function PilotsDetail({ pilotsURLs, PilotsShow }) {
         let result = await axios(url);
         setData(result.data);
       };
-  
+
       FetchUrl(pilotPosition);
     } else {
-      setPilotPosition(0)
+      setPilotPosition(0);
     }
-  }, [pilotPosition])
+  }, [pilotPosition]);
 
   return (
     <Container>
@@ -57,6 +57,16 @@ function PilotsDetail({ pilotsURLs, PilotsShow }) {
           </NextButton>
           <CloseButton onClick={() => PilotsShow(false)}>Close</CloseButton>
         </ButtonContainer>
+        <ContainerCircles>
+          {pilotsURLs.map((i) => {
+            if (pilotsURLs.indexOf(i, 0) == pilotPosition) {
+              // If we are in the same position of the film being rendered
+              return <CircleActivated />;
+            } else {
+              return <CircleDesactivated />;
+            }
+          })}
+        </ContainerCircles>
       </BoxPilots>
     </Container>
   );
@@ -81,6 +91,7 @@ const BoxPilots = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 `;
 
 const InformationContainer = styled.div`
@@ -117,6 +128,34 @@ const P = styled.p`
   flex-direction: row;
   justify-content: flex-start;
   margin-left: 5vw;
+`;
+
+const ContainerCircles = styled.div`
+  position: absolute;
+  left: 0;
+  width: 30px;
+  top: 15vh;
+  left: 1vw;
+  bottom: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 20vh;
+`;
+
+const CircleActivated = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background-color: black;
+`;
+
+const CircleDesactivated = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background-color: gray;
 `;
 
 const ButtonContainer = styled.div`
