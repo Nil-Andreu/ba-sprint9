@@ -7,31 +7,28 @@ function PilotsDetail({ pilotsURLs, PilotsShow }) {
   let lengthPilots = pilotsURLs.length;
   let iterator = lengthPilots - 1;
   const [pilotPosition, setPilotPosition] = useState(0);
-  const [pilot, setPilot] = useState([]);
-  const [pilotName, setPilotName] = useState("");
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     // FETCH PILOTS
     const FetchUrl = async (id) => {
-      console.log(pilotsURLs[id]);
+      let url = pilotsURLs[id];
+      console.log(url);
       // First we make the query to the url at the position of the id
-      await axios(pilotsURLs[id])
-        .then((res) => {
-          let values = res.data;
-          setPilot(values);
-          console.log(pilot)
-        })
-        .then(setPilotName(pilot.name));
+      let result = await axios(url)
+      setData(result.data)
+      
     };
 
-    FetchUrl(pilotPosition);
+    FetchUrl(0);
   }, []);
+
 
   return (
     <Container>
       <BoxPilots>
         <InformationContainer>
-          <PilotName>{pilotName}</PilotName>
+          <PilotName>{data.name}</PilotName>
           <PilotGender></PilotGender>
         </InformationContainer>
         <ButtonContainer>
