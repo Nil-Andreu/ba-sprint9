@@ -22,6 +22,21 @@ function PilotsDetail({ pilotsURLs, PilotsShow }) {
     FetchUrl(0);
   }, []);
 
+  useEffect(() => {
+    if (pilotPosition <= iterator) {
+      const FetchUrl = async (id) => {
+        let url = pilotsURLs[id];
+        // First we make the query to the url at the position of the id
+        let result = await axios(url);
+        setData(result.data);
+      };
+  
+      FetchUrl(pilotPosition);
+    } else {
+      setPilotPosition(0)
+    }
+  }, [pilotPosition])
+
   return (
     <Container>
       <BoxPilots>
@@ -32,10 +47,9 @@ function PilotsDetail({ pilotsURLs, PilotsShow }) {
         <InformationSubContainer>
           <P>The weight is: {data.mass}</P>
           <P>The birth date is: {data.birth_year}</P>
-          <P>The weight is: {data.mass}</P>
-          <P>The birth date is: {data.birth_year}</P>
-          <P>The weight is: {data.mass}</P>
-          <P>The birth date is: {data.birth_year}</P>
+          <P>The hair color is: {data.hair_color}</P>
+          <P>The eye_color is: {data.eye_color}</P>
+          <P>The skin color is: {data.skin_color}</P>
         </InformationSubContainer>
         <ButtonContainer>
           <NextButton onClick={() => setPilotPosition(pilotPosition + 1)}>
@@ -91,11 +105,10 @@ const PilotGender = styled.h6`
 const InformationSubContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  height: 40%;
+  height: 50%;
   flex-wrap: wrap;
-
 `;
 
 const P = styled.p`
@@ -113,11 +126,28 @@ const ButtonContainer = styled.div`
   margin-bottom: 10px;
 `;
 
-const NextButton = styled.button``;
+const NextButton = styled.button`
+  background-color: transparent;
+  font-family: "Roboto Mono", "Arial";
+  width: 10vw;
+  border: 1px solid black;
+  margin-right: 30px;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
 
 const CloseButton = styled.button`
+  width: 10vw;
+  font-family: "Roboto Mono", "Arial";
+  color: white;
   padding: 1vh 3vw;
   background-color: black;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 export default PilotsDetail;
