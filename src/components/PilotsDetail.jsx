@@ -3,35 +3,36 @@ import axios from "axios";
 import styled from "styled-components";
 
 function PilotsDetail({ pilotsURLs, PilotsShow }) {
-  console.log(pilotsURLs)
   // We obtain which is the length of the pilot values
   let lengthPilots = pilotsURLs.length;
   let iterator = lengthPilots - 1;
   const [pilotPosition, setPilotPosition] = useState(0);
-  const [pilot, setPilot] = useState("");
-
-  // Will develop 
-  const FetchUrl = async (id) => {
-
-  }
+  const [pilot, setPilot] = useState([]);
+  const [pilotName, setPilotName] = useState("");
 
   useEffect(() => {
+    // FETCH PILOTS
+    const FetchUrl = async (id) => {
+      console.log(pilotsURLs[id]);
+      // First we make the query to the url at the position of the id
+      await axios(pilotsURLs[id])
+        .then((res) => {
+          let values = res.data;
+          setPilot(values);
+          console.log(pilot)
+        })
+        .then(setPilotName(pilot.name));
+    };
 
-    // We will first make the query for the first position
+    FetchUrl(pilotPosition);
   }, []);
-
-  // For handling changes in the pilot position
-  useEffect(() => {
-    
-
-    // Every time we change the pilot we are looking for, will update the data
-  }, [pilotPosition]);
 
   return (
     <Container>
       <BoxPilots>
         <InformationContainer>
-          
+          <PilotName>{pilotName}</PilotName>
+          <PilotGender></PilotGender>
         </InformationContainer>
         <ButtonContainer>
           <NextButton onClick={() => setPilotPosition(pilotPosition + 1)}>

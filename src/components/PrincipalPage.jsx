@@ -96,7 +96,7 @@ function PrincipalPage() {
                   idRenderer == data.indexOf(i, 0) &&
                   typeof idRenderer == "number"
                 ) {
-                  return <Detail i={i} setIdRenderer={setIdRenderer} />;
+                  return <Detail i={i} setIdRenderer={setIdRenderer} key={i.name}/>;
                 } else {
                   return (
                     <ListCard
