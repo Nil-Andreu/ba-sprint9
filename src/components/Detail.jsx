@@ -18,13 +18,11 @@ function Detail({ i, setIdRenderer }) {
     // In the case that there are pilots, we will render the button
     for (let i in pilots) {
       let value = pilots[i];
-      console.log("This should be the url to query", value);
 
       // Define the function for fecthing the pilot values
       let pilotFetch = async (pilotValue) => {
         axios(pilotValue).then((res) => {
           pilotsDataValues[i] = res.data;
-          console.log(pilotsDataValues);
         });
       };
 
