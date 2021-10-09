@@ -5,7 +5,7 @@ import axios from "axios";
 import PilotsDetail from "./PilotsDetail";
 import FilmsDetail from "./FilmsDetail"
 
-function Detail({ i, setIdRenderer }) {
+function DetailStarships({ i, setIdRenderer }) {
   const [pilotDetailsShow, setPilotDetailsShow] = useState(false);
   const [filmDetailsShow, setFilmDetailShow] = useState(false);
 
