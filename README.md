@@ -1,2 +1,3 @@
 - Separate more the components
+- IMPROVE LOGGIN AND SOLVE BUTTON (AS WELL AS CREATE A LOGOUT)
 - Create a card for enumerating the pilots (like modal, and to change the modal for each pilot for every starships)

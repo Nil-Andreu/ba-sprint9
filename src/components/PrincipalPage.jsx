@@ -7,22 +7,36 @@ import { useHistory, Redirect } from "react-router-dom";
 // For handling the auth (we do this not inside of the component, as we want to handle it before it is rendered)
 /* Had a problem as i tried to define this inside of the component. And what happened is that i could not update the value of auth after the first renderer,
 so it was always redirected */
-let email = window.localStorage.getItem("email");
+/*let email = window.localStorage.getItem("email");
 let password = window.localStorage.getItem("password");
-let auth = false;
+let auth = true;
 
 if (email == null || password == null) {
 } else {
   auth = true;
-}
+}*/
 
 function PrincipalPage() {
   const [buttonList, setButtonList] = useState(false);
   const [data, setData] = useState([]);
   const [idRenderer, setIdRenderer] = useState(false);
   const [page, setPage] = useState(1);
-  const [emailUser, setEmailUser] = useState(email);
-  const [passwordUser, setPasswordUser] = useState(password);
+  const [emailUser, setEmailUser] = useState(false);
+  const [passwordUser, setPasswordUser] = useState(false);
+  const [auth, isAuth] = useState(true); 
+  // By default is true. In the case it turns false, we will then redirect. If by default is false, we redirect when the page is loaded and cannot check auth
+
+  // Handling auth
+  useEffect(() => {
+    let email = window.localStorage.getItem("email");
+    let password = window.localStorage.getItem("password");
+    if (email == null || password == null) {
+      isAuth(false);
+    } else {
+      setEmailUser(email);
+      setPasswordUser(password);
+    }
+  }, []);
 
   let buttonListHandler = (number) => {
     if (number == 1) {
@@ -38,8 +52,8 @@ function PrincipalPage() {
     let url = `https://swapi.dev/api/starships/?page=${page}`;
 
     const FetchUrl = async (urlQuery) => {
-      let result = await axios(urlQuery)
-      setData(result.data.results)
+      let result = await axios(urlQuery);
+      setData(result.data.results);
     };
 
     FetchUrl(url);
@@ -51,11 +65,11 @@ function PrincipalPage() {
     let url = `https://swapi.dev/api/starships/?page=${page}`;
 
     const FetchUrl = async (urlQuery) => {
-      let result = await axios(urlQuery) // Obtain which will be the data for this new pagination
-      let data_incoming = result.data.results
+      let result = await axios(urlQuery); // Obtain which will be the data for this new pagination
+      let data_incoming = result.data.results;
       //Spreading in a new array the data we had and the new data
-      let new_data = [...data, ...data_incoming]
-      setData(new_data)
+      let new_data = [...data, ...data_incoming];
+      setData(new_data);
     };
 
     // The maximum amount of pages that there are, so we only make the fetch when there are more
@@ -65,10 +79,13 @@ function PrincipalPage() {
     // We will also create a handler for this inside of the component
   }, [page]);
 
+  // Log out handler
+  const LogoutHandler = () => {};
+
   // Function for handling what will be rendered
   const RenderingFunction = () => {
+    // In the case the user is authenticated
     if (auth == true) {
-      // In the case the user is authenticated
       return (
         <Fragment>
           <Navbar>
@@ -96,7 +113,9 @@ function PrincipalPage() {
                   idRenderer == data.indexOf(i, 0) &&
                   typeof idRenderer == "number"
                 ) {
-                  return <Detail i={i} setIdRenderer={setIdRenderer} key={i.name}/>; // Meaning that they clicking the i
+                  return (
+                    <Detail i={i} setIdRenderer={setIdRenderer} key={i.name} />
+                  ); // Meaning that they clicking the i
                 } else {
                   return (
                     <ListCard
@@ -123,12 +142,12 @@ function PrincipalPage() {
             <HomePage>
               <h3>Welcome to this page! Thanks for logging</h3>
               <p>You have been registered with: {emailUser}</p>
+              <ButtonLogout onClick={LogoutHandler}>Log out</ButtonLogout>
             </HomePage>
           )}
         </Fragment>
       );
     } else {
-      // In the case it is false
       return <Redirect to="/" />;
     }
   };
@@ -240,6 +259,19 @@ const InformationPage = styled.p`
   margin-bottom: 10vh;
   color: red;
   font-family: "Roboto Mono", "Arial";
+`;
+
+const ButtonLogout = styled.button`
+  color: white;
+  width: 10vw;
+  font-family: "Roboto Mono", "Arial";
+  color: white;
+  padding: 1vh 3vw;
+  background-color: black;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 export default PrincipalPage;

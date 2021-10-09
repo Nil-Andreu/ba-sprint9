@@ -1,35 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory, Redirect, withRouter } from "react-router-dom";
 
 // We obtain those values before the component is rendered, to be able to redirect directly
-let isEmail = window.localStorage.getItem("email");
+/*let isEmail = window.localStorage.getItem("email");
 let isPassword = window.localStorage.getItem("password");
 let isAuth = false;
 if (isEmail == null || isPassword == null) {
 } else {
   isAuth = true;
-}
+}*/
 
 const LoginPage = () => {
   let history = useHistory();
+  const [auth, setAuth] = useState(false);
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
 
-  const SubtmitHandler = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    let isEmail = window.localStorage.getItem("email");
+    let isPassword = window.localStorage.getItem("password");
+
+    if (isEmail == null || isPassword == null) {
+    } else {
+      setAuth(true); // so it will re-render the app and will be redirected
+    }
+  }, []);
+
+  const SubmitHandler = (e) => {
+    // e.preventDefault();
     window.localStorage.setItem("email", email);
     window.localStorage.setItem("password", password);
-    history.push("/starships/"); // Will redirect to the url we want to use
+    history.push("/starships/")
   };
 
   let AuthHandler = () => {
-    if (!isAuth) {
+    if (!auth) {
       return (
         <Container>
           <LoginForm>
             <h1>Welcome to Star Wars App</h1>
-            <Form onSubmit={(e) => SubtmitHandler(e)}>
+            <Form onSubmit={(e) => SubmitHandler(e)}>
               <div>
                 <label htmlFor="">Enter your email:</label>
                 <input type="text" onChange={(e) => setEmail(e.target.value)} />
@@ -88,4 +99,4 @@ const Button = styled.button`
   font-family: "Roboto Mono", "Arial";
 `;
 
-export default LoginPage;
+export default withRouter(LoginPage); // To be able to do the redirect
