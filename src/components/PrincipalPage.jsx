@@ -31,7 +31,7 @@ function PrincipalPage() {
     let email = window.localStorage.getItem("email");
     let password = window.localStorage.getItem("password");
     if (email == null || password == null) {
-      isAuth(false);
+      isAuth(false); // Will be re-rendered, and now will render the Redirect component
     } else {
       setEmailUser(email);
       setPasswordUser(password);
@@ -80,7 +80,11 @@ function PrincipalPage() {
   }, [page]);
 
   // Log out handler
-  const LogoutHandler = () => {};
+  const LogoutHandler = () => {
+    window.localStorage.removeItem("email")
+    window.localStorage.removeItem("password")
+    isAuth(false) // Will re-render the component, and itself will make the logout
+  };
 
   // Function for handling what will be rendered
   const RenderingFunction = () => {

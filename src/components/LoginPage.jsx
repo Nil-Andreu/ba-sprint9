@@ -2,15 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useHistory, Redirect, withRouter } from "react-router-dom";
 
-// We obtain those values before the component is rendered, to be able to redirect directly
-/*let isEmail = window.localStorage.getItem("email");
-let isPassword = window.localStorage.getItem("password");
-let isAuth = false;
-if (isEmail == null || isPassword == null) {
-} else {
-  isAuth = true;
-}*/
-
 const LoginPage = () => {
   let history = useHistory();
   const [auth, setAuth] = useState(false);
@@ -28,7 +19,7 @@ const LoginPage = () => {
   }, []);
 
   const SubmitHandler = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     window.localStorage.setItem("email", email);
     window.localStorage.setItem("password", password);
     history.push("/starships/")
