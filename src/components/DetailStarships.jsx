@@ -2,8 +2,8 @@ import React, { useEffect, useState, Fragment } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import PilotsDetail from "./PilotsDetail";
-import FilmsDetail from "./FilmsDetail"
+import PilotsDetail from "./PilotsSubDetail";
+import FilmsDetail from "./FilmsSubDetail"
 
 function DetailStarships({ i, setIdRenderer }) {
   const [pilotDetailsShow, setPilotDetailsShow] = useState(false);
