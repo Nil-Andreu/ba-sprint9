@@ -12,6 +12,7 @@ import {
   CircleDesactivated,
   CircleActivated,
   NextButton,
+  ButtonContainer,
   CloseButton,
 } from "./PilotsSubDetailComponents";
 
