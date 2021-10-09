@@ -1,9 +1,20 @@
 import React, { Fragment, useEffect, useState } from "react";
-import DetailStarships from "./DetailStarships.jsx";
-import DetailActors from "./DetailActors"
-import styled from "styled-components";
+import DetailStarships from "../DetailStarships.jsx";
+import DetailActors from "../DetailActors";
 import axios from "axios";
 import { useHistory, Redirect } from "react-router-dom";
+import {
+  Navbar,
+  Button,
+  HomePage,
+  List,
+  ListCard,
+  ListCardTitle,
+  ListCardType,
+  LoadMoreButton,
+  InformationPage,
+  ButtonLogout,
+} from "./PrincipalPageComponents";
 
 function PrincipalPage() {
   // For handling what is rendered
@@ -12,11 +23,10 @@ function PrincipalPage() {
   // For handling auth
   const [emailUser, setEmailUser] = useState(false);
   const [passwordUser, setPasswordUser] = useState(false);
-  const [auth, isAuth] = useState(true);  
+  const [auth, isAuth] = useState(true);
   /*By default is true. In the case it turns false, 
   we will then redirect. If by default is false, we 
   redirect when the page is loaded and cannot check auth*/
-
 
   // For handling starships
   const [dataStarships, setDataStarships] = useState([]);
@@ -53,16 +63,16 @@ function PrincipalPage() {
     FetchUrlStarships(urlStarships);
 
     // Now handling the actors
-    let urlActors = "https://swapi.dev/api/people/"
+    let urlActors = "https://swapi.dev/api/people/";
 
-    const FetchUrlActors = async(urlQuery) => {
-      let result = await axios(urlQuery)
-      console.log(result)
-      setDataActors(result.data.results)
-    }
+    const FetchUrlActors = async (urlQuery) => {
+      let result = await axios(urlQuery);
+      console.log(result);
+      setDataActors(result.data.results);
+    };
 
-    FetchUrlActors(urlActors)
-    console.log(dataActors)
+    FetchUrlActors(urlActors);
+    console.log(dataActors);
   }, []);
 
   // For handling the querysets of the button click
@@ -96,7 +106,7 @@ function PrincipalPage() {
       //Spreading in a new array the data we had and the new data
       let new_data = [...dataActors, ...data_incoming];
       setDataActors(new_data);
-      console.log(dataActors)
+      console.log(dataActors);
     };
 
     // The maximum amount of pages that there are, so we only make the fetch when there are more
@@ -134,7 +144,11 @@ function PrincipalPage() {
               typeof idRendererStarships == "number"
             ) {
               return (
-                <DetailStarships i={i} setIdRenderer={setIdRendererStarships} key={i.name} />
+                <DetailStarships
+                  i={i}
+                  setIdRenderer={setIdRendererStarships}
+                  key={i.name}
+                />
               ); // Meaning that they clicking the i
             } else {
               return (
@@ -161,14 +175,18 @@ function PrincipalPage() {
       );
     } else {
       return (
-          <List>
-            {dataActors.map((i) => {
+        <List>
+          {dataActors.map((i) => {
             if (
               idRendererActors == dataActors.indexOf(i, 0) &&
               typeof idRendererActors == "number"
             ) {
               return (
-                <DetailActors i={i} setIdRendererActors={setIdRendererActors} key={i.name} />
+                <DetailActors
+                  i={i}
+                  setIdRendererActors={setIdRendererActors}
+                  key={i.name}
+                />
               ); // Meaning that they clicking the i
             } else {
               return (
@@ -191,8 +209,8 @@ function PrincipalPage() {
           ) : (
             <InformationPage>No more pages to load</InformationPage>
           )}
-          </List>
-      )
+        </List>
+      );
     }
   };
 
@@ -238,124 +256,5 @@ function PrincipalPage() {
 
   return RenderingFunction();
 }
-
-const Navbar = styled.div`
-  border: white;
-  height: 5vh;
-  background-color: #000;
-  border-top: 1px solid #aaaaaa;
-  border-bottom: 1px solid #aaaaaa;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-`;
-
-const Button = styled.button`
-  width: 10vw;
-  height: 100%;
-  border-left: 1px solid #aaaaaa;
-  border-right: 1px solid #aaaaaa;
-  color: #999999;
-
-  border-top: none;
-  border-bottom: none;
-  background-color: transparent;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-transform: uppercase;
-
-  &:focus {
-    border-bottom: 3px solid #2a58f1;
-  }
-`;
-
-const HomePage = styled.div`
-  width: 100%;
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-
-  p {
-    margin-top: 10vh;
-  }
-`;
-
-const List = styled.div`
-  background-color: #000;
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-`;
-
-const ListCard = styled.div`
-  margin: 2vh 15vw;
-  height: 14vh;
-  border-radius: 2px;
-  width: 70vw;
-  background-color: #202020;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  text-decoration: none;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-`;
-
-const ListCardTitle = styled.h2`
-  margin-left: 30px;
-  font-size: 1rem;
-  color: #999999;
-  text-transform: uppercase;
-`;
-
-const ListCardType = styled.h3`
-  margin-left: 30px;
-  font-size: 0.5rem;
-  text-transform: uppercase;
-  color: #999999;
-`;
-
-// This button when onclick, will load new data and will append this to the data we already have
-const LoadMoreButton = styled.button`
-  align-self: center;
-  margin-top: 10vh;
-  max-width: 40%;
-  padding: 2rem 8rem;
-  margin-bottom: 20vh;
-  background-color: white;
-  color: #000;
-  font-family: "Roboto Mono", "Arial";
-`;
-
-const InformationPage = styled.p`
-  align-self: center;
-  margin-bottom: 10vh;
-  color: red;
-  font-family: "Roboto Mono", "Arial";
-`;
-
-const ButtonLogout = styled.button`
-  color: white;
-  width: 10vw;
-  font-family: "Roboto Mono", "Arial";
-  color: white;
-  padding: 1vh 3vw;
-  background-color: black;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-`;
 
 export default PrincipalPage;
