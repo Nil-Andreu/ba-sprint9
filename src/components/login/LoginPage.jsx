@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import { useHistory, Redirect, withRouter } from "react-router-dom";
+
+// Import components from a separated file
+import {Container, LoginForm, Form, InputContainer, Button} from "./LoginPageComponents"
 
 const LoginPage = () => {
   let history = useHistory();
@@ -56,49 +58,5 @@ const LoginPage = () => {
   return AuthHandler();
 };
 
-const Container = styled.div`
-  height: calc(80vh - 1px);
-  background-color: black;
-  border-top: 1px white solid;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const LoginForm = styled.div`
-  width: 50vw;
-  height: 50vh;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-`;
-
-const Form = styled.form`
-height: 30vh;
-  width: 70%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-`;
-
-const InputContainer = styled.div`
-width: 80%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Button = styled.button`
-  background-color: black;
-  text-decoration: none;
-  color: white;
-  padding: 2rem 10rem;
-  font-family: "Roboto Mono", "Arial";
-`;
 
 export default withRouter(LoginPage); // To be able to do the redirect
