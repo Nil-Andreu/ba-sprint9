@@ -32,17 +32,17 @@ const LoginPage = () => {
           <LoginForm>
             <h1>Welcome to Star Wars App</h1>
             <Form onSubmit={(e) => SubmitHandler(e)}>
-              <div>
+              <InputContainer>
                 <label htmlFor="">Enter your email:</label>
                 <input type="text" onChange={(e) => setEmail(e.target.value)} />
-              </div>
-              <div>
+              </InputContainer>
+              <InputContainer>
                 <label htmlFor="">Enter your password:</label>
                 <input
                   type="text"
                   onChange={(e) => setPassword(e.target.value)}
                 />
-              </div>
+              </InputContainer>
               <Button type="submit">Enter to this app</Button>
             </Form>
           </LoginForm>
@@ -76,17 +76,28 @@ const LoginForm = styled.div`
 `;
 
 const Form = styled.form`
+height: 30vh;
   width: 70%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+`;
+
+const InputContainer = styled.div`
+width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Button = styled.button`
   background-color: black;
   text-decoration: none;
   color: white;
-  max-width: 40%;
-  padding: 2rem 8rem;
+  padding: 2rem 10rem;
   font-family: "Roboto Mono", "Arial";
 `;
 

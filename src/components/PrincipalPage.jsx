@@ -81,6 +81,7 @@ function PrincipalPage() {
 
   // Log out handler
   const LogoutHandler = () => {
+    // We first remove the items, to make also the auth to stay in false in the case the page is re-rendered
     window.localStorage.removeItem("email")
     window.localStorage.removeItem("password")
     isAuth(false) // Will re-render the component, and itself will make the logout
