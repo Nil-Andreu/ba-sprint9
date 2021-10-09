@@ -1,5 +1,6 @@
 We have the following architecture:
 - PrincipalPage: decides whether to send the user to the following pages:
+    
     a. StarshipsPage: can see mainly which are the starships in Star Wars. The principal file component is DetailStarships.jsx
     In this page you can look to:
     - FilmsSubDetail: where those starships appear in the fils
