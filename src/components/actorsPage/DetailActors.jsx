@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import StarshipsDetail from "./StarshipsSubDetail"
-import FilmsDetail from "./FilmsSubDetail"
+import FilmsDetail from "../FilmsSubDetail"
 
 // For this detail actors we want to render its films and piltos details
 function DetailActors({ i, setIdRendererActors }) {

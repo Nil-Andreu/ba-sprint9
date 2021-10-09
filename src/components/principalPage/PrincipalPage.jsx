@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
-import DetailStarships from "../DetailStarships.jsx";
-import DetailActors from "../DetailActors";
+import DetailStarships from "../starshipsPage/DetailStarships.jsx";
+import DetailActors from "../actorsPage/DetailActors";
 import axios from "axios";
 import { useHistory, Redirect } from "react-router-dom";
 import {
