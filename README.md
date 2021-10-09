@@ -9,3 +9,5 @@ We have the following architecture:
         - StarshipSubDetail: which are the starships that have those actors
     Note the Sub detail, meaning that are the detail subjected to something.
 - LoginPage: when the user is not authenticated
+
+I have developed this architecture, to ensure the escalability (as filmsubsdetail is the same file in both pages).
