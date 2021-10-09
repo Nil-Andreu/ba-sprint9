@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import PrincipalPage from './components/principalPage/PrincipalPage'
 import LoginPage from './components/login/LoginPage'
 import {Route, Switch} from 'react-router'

@@ -10,4 +10,4 @@ We have the following architecture:
     Note the Sub detail, meaning that are the detail subjected to something.
 - LoginPage: when the user is not authenticated
 
-I have developed this architecture, to ensure the escalability (as filmsubsdetail is the same file in both pages).
+I have developed this architecture, to ensure the escalability (as filmsubsdetail is the same file in both pages). As i have tried to do not have repeated or unused code. 

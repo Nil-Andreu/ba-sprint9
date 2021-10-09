@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import PilotsDetail from "./PilotsSubDetail";
 import FilmsDetail from "../FilmsSubDetail";
 import {
