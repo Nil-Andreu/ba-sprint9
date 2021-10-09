@@ -76,7 +76,7 @@ function DetailStarships({ i, setIdRenderer }) {
   );
 }
 
-export default Detail;
+export default DetailStarships;
 
 const Container = styled.div`
   margin: auto;

@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import DetailStarships from "./DetailStarships.jsx";
-import DetailActors from "./DetailActors.jsx"
+import DetailActors from "./DetailActors"
 import styled from "styled-components";
 import axios from "axios";
 import { useHistory, Redirect } from "react-router-dom";
